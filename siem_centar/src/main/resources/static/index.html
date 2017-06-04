@@ -3,8 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <title>SIEM Centar</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- bunch of must-have angularjs stuff -->
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/lodash/lodash.js"></script>
+    <script src="bower_components/restangular/dist/restangular.js"></script>
+    <script src="bower_components/angular-lodash-module/angular-lodash-module.js"></script>
+
+    <!-- bunch of bootstrap ui stuff -->
+    <link rel="stylesheet" href="bower_components/bootstrap-css-only/css/bootstrap.css">
+    <link rel="stylesheet" href="bower_components/bootstrap-css-only/css/bootstrap-theme.css">
+
+    <!-- scripts controllers etc. -->
+    <script src="scripts/routes.js"></script>
+    <script src="scripts/index.js"></script>
+    <script src="scripts/login.js"></script>
+
 </head>
-<body>
-    <h1>Hello!</h1>
+<body ng-app="myApp">
+<div class="container">
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <h1>Welcome TimSedam's SIEM Center!</h1>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+</div>
+<div>
+    <ng-view></ng-view>
+</div>
 </body>
 </html>

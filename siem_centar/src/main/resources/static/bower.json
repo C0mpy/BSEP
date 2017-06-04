@@ -10,12 +10,15 @@
   "ignore": [
     "**/.*",
     "node_modules",
-    "bower_components",
     "test",
     "tests"
   ],
   "dependencies": {
+    "angular-lodash-module": "^1.2.0",
+    "angular-resource": "^1.6.4",
     "angular": "^1.6.4",
+    "angular-route": "^1.6.4",
+    "restangular": "^1.6.1",
     "angular-bootstrap": "^2.5.0",
     "bootstrap-css-only": "^3.3.7"
   }
