@@ -1,5 +1,5 @@
 angular
-    .module("myApp", ['ngResource', 'ngRoute', 'restangular', 'lodash'])
+    .module("myApp", ['ngResource', 'ngRoute', 'restangular', 'lodash', 'directive.g+signin'])
     .config(["$routeProvider", function($routeProvider) {
         $routeProvider
             .when("/", {
@@ -12,7 +12,6 @@ angular
             });
     }])
     .run(['Restangular', '$log', function(Restangular, $log) {
-        Restangular.setBaseUrl("api");
         Restangular.setErrorInterceptor(function (response) {
             if (response.status === 500) {
                 $log.info("internal server error");
