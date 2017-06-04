@@ -64,15 +64,12 @@ bower_components
 *~
 /build
 /code
-.classpath
-.project
 .settings
 .metadata
 .factorypath
 .recommenders
 bin
 build
-lib/
 .factorypath
 .springBeans
 interpolated*.xml
@@ -87,7 +84,6 @@ overridedb.*
 *.iml
 *.ipr
 .idea
-*.jar
 .DS_Store
 .factorypath
 dump.rdb
