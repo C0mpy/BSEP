@@ -1,5 +1,5 @@
 package com.timsedam.services;
-/*
+
 import com.timsedam.repository.LogRepository;
 import com.timsedam.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,4 +11,3 @@ public class AdminService {
     @Autowired
     private UserRepository repository;
 }
-*/

@@ -1,7 +1,7 @@
 (function() {
     angular.module("myApp").controller("loginController", loginController);
 
-    function loginController($https, $scope) {
+    function loginController($http, $scope) {
         var vm = this;
 
         vm.login = login;
@@ -13,7 +13,8 @@
         $scope.$on("event:google-plus-signin-success", function (event, authResult) {
             var url = "https://www.googleapis.com/oauth2/v2/userinfo?access_token=" + authResult["access_token"];
             $http.get(url).then(function(response) {
-                $https.post("/operator/login", response.data).then(function(response) {
+                var data = {"email" : response.data.email, "password" : response.data.id};
+                $http.post("api/operator/login", data).then(function(response) {
                    console.log("U LOGGDDMOTHAFACUAA");
                 });
             });

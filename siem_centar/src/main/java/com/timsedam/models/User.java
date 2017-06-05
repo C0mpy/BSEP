@@ -1,31 +1,31 @@
 package com.timsedam.models;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-/*
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+
 @Entity
 public class User {
 
     @Id
     private String email;
 
-    @Id
     private String password;
 
-    private String role;
-
-    private String salt;
+    @ManyToMany
+    private Collection<Role> roles;
 
     public User() {
     }
 
-    public User(String email, String password, String role, String salt) {
+    public User(String email, String password, Collection<Role> roles, String salt) {
         this.email = email;
         this.password = password;
-        this.role = role;
-        this.salt = salt;
+        this.roles = roles;
     }
 
     public String getEmail() {
@@ -44,19 +44,12 @@ public class User {
         this.password = password;
     }
 
-    public String getRole() {
-        return role;
+    public Collection<Role> getRoles() {
+        return roles;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setRole(Collection<Role> roles) {
+        this.roles = roles;
     }
 
-    public String getSalt() {
-        return salt;
-    }
-
-    public void setSalt(String salt) {
-        this.salt = salt;
-    }
-}*/
+}
