@@ -13,8 +13,7 @@ public class LogService {
 	@Autowired
 	private LogRepository repository;
 	
-	public String save(Log log) {
-		System.out.println("dasa");
-		return "upisan";
+	public Log save(Log log) {
+		return repository.save(log);
 	}
 }

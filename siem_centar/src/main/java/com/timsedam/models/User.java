@@ -1,8 +1,10 @@
 package com.timsedam.models;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
-
+/*
 @Entity
 public class User {
 
@@ -57,4 +59,4 @@ public class User {
     public void setSalt(String salt) {
         this.salt = salt;
     }
-}
+}*/

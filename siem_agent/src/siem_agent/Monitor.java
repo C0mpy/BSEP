@@ -4,11 +4,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.RandomAccessFile;
 
+import org.json.simple.JSONObject;
+
 public class Monitor implements Runnable {
 
 	private File logfile;
 	private long filepointer;
 	private long delaytime;
+	private Sender sender;
 	
 	Monitor(String path) throws FileNotFoundException{
 		logfile=new File(path);
@@ -16,8 +19,11 @@ public class Monitor implements Runnable {
 		
 		filepointer=0;
 		delaytime=2000; //2sec
+		
+		sender = new Sender();
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public void run() {
 		boolean monitor=true;
@@ -28,11 +34,16 @@ public class Monitor implements Runnable {
 					f.seek(filepointer);
 						
 					String line;
-					line=f.readLine();
 				
-					while(line!=null){
+					while((line=f.readLine())!=null){
 						//ovde negde salje log
-						line=f.readLine();
+						if (line.equals("")) continue; //preskoci prazan red
+						
+						JSONObject json = new JSONObject();
+						json.put("agentId", "1");
+						json.put("log", line);
+						int response = sender.sendPostRequest(json);
+						
 					}					
 						
 					filepointer=f.getFilePointer();

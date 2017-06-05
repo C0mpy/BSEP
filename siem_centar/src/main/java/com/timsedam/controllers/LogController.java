@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.timsedam.dto.LogDTO;
+import com.timsedam.models.Log;
 import com.timsedam.services.LogService;
 
 @RestController
@@ -19,8 +20,12 @@ public class LogController {
 	private LogService service;
 	
 	@RequestMapping(value = "/save", method = RequestMethod.POST, consumes = "application/json")
-	public ResponseEntity<String> saveLogs(@RequestBody LogDTO loginDTO) {
-		System.out.println("dadsa");
-		return new ResponseEntity<String>("DSA", HttpStatus.OK);
+	public ResponseEntity<String> saveLogs(@RequestBody LogDTO logDTO) {
+		
+		Log log = new Log();
+		log.setAgentId(logDTO.getAgentId());
+		log.setLog(logDTO.getLog());
+		service.save(log);
+		return new ResponseEntity<String>("Log is saved in database", HttpStatus.OK);
 	}
 }

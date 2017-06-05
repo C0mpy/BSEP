@@ -16,7 +16,7 @@ public class Main {
 		
 		JSONArray config = (JSONArray) parser.parse(new FileReader("config.json"));
 		
-	    Thread t = new Thread(new Monitor("urlneki"));
+	    Thread t = new Thread(new Monitor("C:\\Windows\\Logs\\DirectX.log"));
 		t.start();
 				
 	}
