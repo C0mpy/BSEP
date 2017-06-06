@@ -24,19 +24,31 @@ public class Sender {
 		}
 	}
 
-	public Sender() {
+	String URL_BASE ;
+	String method ;
+	String userName ;
+	String password ;
+	String authentication ;
+	String host;
+	String port;
+	String method_url;
+	
+	public Sender(JSONObject cfg) {
+		
+		URL_BASE=(String) cfg.get("url_base");
+		method=(String) cfg.get("method");
+		userName=(String) cfg.get("username");
+		password=(String) cfg.get("password");
+		host=(String) cfg.get("host");
+		port=(String) cfg.get("port");
+		authentication = userName + ':' + password;
+		method_url= (String) cfg.get("method_url");
 	}
 
 	public int sendPostRequest(JSONObject json) throws IOException {
 
 		// connection and authentication
-		String URL_BASE = "https://";
-		String method = "POST";
-		String userName = "admin";
-		String password = "admin";
-		String authentication = userName + ':' + password;
-		String host = "localhost";
-		String port = "8443";
+		
 
 		String url = URL_BASE + host + ":" + port + "/api/logs/save";
 		URL obj = new URL(url);
@@ -78,6 +90,11 @@ public class Sender {
 		// print result
 		System.out.println(response.toString());*/
 		return responseCode;
+	}
+	
+	//obrisi posle
+	public void  send(String log){
+		System.out.println(log);
 	}
 
 }

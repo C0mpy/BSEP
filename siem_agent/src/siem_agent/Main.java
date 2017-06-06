@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
@@ -14,11 +15,15 @@ public class Main {
 		
 		JSONParser parser = new JSONParser();
 		
-		JSONArray config = (JSONArray) parser.parse(new FileReader("config.json"));
-		
-	    Thread t = new Thread(new Monitor("C:\\Windows\\Logs\\DirectX.log"));
-		t.start();
+		JSONObject cfg = (JSONObject) parser.parse(new FileReader("config.json"));
 				
+		for(Object m:(JSONArray) cfg.get("monitors")){
+			JSONObject monitor_cfg = (JSONObject) m;
+			if(((String) monitor_cfg.get("type")).equals("filemonitor")){
+			    Thread t = new Thread(new FileMonitor(monitor_cfg,new Sender((JSONObject) cfg.get("sender"))));
+				t.start();
+			}
+		}	
 	}
 
 }

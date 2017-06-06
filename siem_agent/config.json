@@ -1,6 +1,25 @@
-[
-	{
-	},
-	{
+{	
+	"monitors":[
+		{
+			"id":"1",
+			"type":"filemonitor",
+			"url":"/home/sirko/Desktop/login.txt",
+			"delaytime":2000
+		},
+		{
+			"id":"2",
+			"type":"filemonitor",
+			"url":"/home/sirko/Desktop/bandcamp.txt",
+			"delaytime":2000
+		}
+	],
+	"sender":{
+		"url_base":"https://",
+		"host":"localhost",
+		"port":"8443",
+		"username":"admin",
+		"password":"admin",
+		"method":"POST",
+		"method_url":"/api/logs/save"
 	}
-]
+}
