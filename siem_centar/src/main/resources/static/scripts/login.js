@@ -24,7 +24,7 @@
                     $cookies.put("token", response.data.response);
                     // postavlja se token u svaki zahtev
                     angular.module("myApp").config(['$httpProvider', function ($httpProvider) {
-                        $httpProvider.defaults.headers.post['X-Access-Token'] = response.data;
+                        $httpProvider.defaults.headers.post['X-Auth-Token'] = response.data;
                     }]);
 
                 });

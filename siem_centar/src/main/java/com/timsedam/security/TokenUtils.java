@@ -27,6 +27,7 @@ public class TokenUtils {
         try {
             Claims claims = getClaimsFromToken(token);
             username = claims.getSubject();
+
         } catch (Exception e) {
             username = null;
         }
@@ -73,3 +74,4 @@ public class TokenUtils {
     }
 
 }
+

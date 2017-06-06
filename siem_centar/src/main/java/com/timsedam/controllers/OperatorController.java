@@ -69,11 +69,11 @@ public class OperatorController {
             token = new UsernamePasswordAuthenticationToken(userDTO.getEmail(), userDTO.getPassword());
             authentication = authenticationManager.authenticate(token);
         }
-
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         UserDetails details = userDetailsService.loadUserByUsername(userDTO.getEmail());
         return new ResponseEntity<ResponseDTO>(new ResponseDTO(tokenUtils.generateToken(details)), HttpStatus.OK);
     }
+
 
 }

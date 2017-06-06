@@ -1,6 +1,7 @@
 package com.timsedam.models;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 
 @Entity
@@ -16,12 +17,21 @@ public class Role {
     @OneToMany(mappedBy = "role")
     private Collection<User> users;
 
+    @ManyToMany
+    private Collection<Permission> permissions;
+
     public Role() {
     }
 
-    public Role(String name, Collection<User> users) {
+    public Role(String name, Collection<User> users, Collection<Permission> permissions) {
         this.name = name;
         this.users = users;
+        this.permissions = permissions;
+    }
+
+    public Role(String name) {
+        this.name = name;
+        this.permissions = new ArrayList<>();
     }
 
     public Long getId() {
@@ -48,4 +58,11 @@ public class Role {
         this.users = users;
     }
 
+    public Collection<Permission> getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(Collection<Permission> permissions) {
+        this.permissions = permissions;
+    }
 }

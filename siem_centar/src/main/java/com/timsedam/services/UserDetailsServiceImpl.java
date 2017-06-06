@@ -1,5 +1,6 @@
 package com.timsedam.services;
 
+import com.timsedam.models.Permission;
 import com.timsedam.models.Role;
 import com.timsedam.models.User;
 import com.timsedam.repository.UserRepository;
@@ -23,14 +24,16 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     @Transactional
+    // za username korisnika dobijamo sve permissions koje su mu dozvoljene, poziva se interno u config
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(username);
         if(user == null)
             throw new UsernameNotFoundException(String.format("No user found with username %s", username));
         else {
             List<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
-            // ono sto se u RBAC zove Role u Javi je Authority
-            grantedAuthorities.add(new SimpleGrantedAuthority(user.getRole().getName()));
+            for(Permission p : user.getRole().getPermissions()) {
+                grantedAuthorities.add(new SimpleGrantedAuthority(p.getName()));
+            }
             return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(),
                     grantedAuthorities);
         }
