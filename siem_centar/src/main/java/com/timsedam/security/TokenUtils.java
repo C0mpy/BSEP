@@ -69,7 +69,7 @@ public class TokenUtils {
         claims.put("sub", userDetails.getUsername());
         claims.put("created", new Date(System.currentTimeMillis()));
         return Jwts.builder().setClaims(claims).setExpiration(new Date(System.currentTimeMillis() + expiration * 1000))
-                .signWith(SignatureAlgorithm.ES256, secret).compact();
+                .signWith(SignatureAlgorithm.HS512, secret).compact();
     }
 
 }

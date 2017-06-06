@@ -14,8 +14,8 @@
             var url = "https://www.googleapis.com/oauth2/v2/userinfo?access_token=" + authResult["access_token"];
             $http.get(url).then(function(response) {
                 var data = {"email" : response.data.email, "password" : response.data.id};
-                $http.post("api/operator/login", data).then(function(response) {
-                   console.log("U LOGGDDMOTHAFACUAA");
+                $http.post("/api/operator/login", data).then(function(response) {
+                   console.log(response);
                 });
             });
         });

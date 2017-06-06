@@ -13,15 +13,15 @@ public class Privilege {
     @Column
     private String name;
 
-    @ManyToMany
-    private Collection<Role> roles;
+    @ManyToOne
+    private Role role;
 
     public Privilege() {
     }
 
-    public Privilege(String name, Collection<Role> roles) {
+    public Privilege(String name, Role role) {
         this.name = name;
-        this.roles = roles;
+        this.role = role;
     }
 
     public Long getId() {
@@ -40,11 +40,11 @@ public class Privilege {
         this.name = name;
     }
 
-    public Collection<Role> getRoles() {
-        return roles;
+    public Role getRole() {
+        return role;
     }
 
-    public void setRoles(Collection<Role> roles) {
-        this.roles = roles;
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

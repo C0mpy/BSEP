@@ -13,10 +13,10 @@ public class Role {
     @Column
     private String name;
 
-    @ManyToMany(mappedBy = "roles")
+    @OneToMany(mappedBy = "role")
     private Collection<User> users;
 
-    @ManyToMany(mappedBy = "roles")
+    @OneToMany(mappedBy = "role")
     private Collection<Privilege> privileges;
 
     public Role() {

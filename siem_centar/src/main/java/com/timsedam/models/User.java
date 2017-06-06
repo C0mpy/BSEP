@@ -1,12 +1,11 @@
 package com.timsedam.models;
 
+import com.timsedam.dto.UserDTO;
+
 import java.io.Serializable;
 import java.util.Collection;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 @Entity
 public class User {
@@ -16,16 +15,16 @@ public class User {
 
     private String password;
 
-    @ManyToMany
-    private Collection<Role> roles;
+    @ManyToOne
+    private Role role;
 
     public User() {
     }
 
-    public User(String email, String password, Collection<Role> roles, String salt) {
+    public User(String email, String password, Role role) {
         this.email = email;
         this.password = password;
-        this.roles = roles;
+        this.role = role;
     }
 
     public String getEmail() {
@@ -44,12 +43,12 @@ public class User {
         this.password = password;
     }
 
-    public Collection<Role> getRoles() {
-        return roles;
+    public Role getRole() {
+        return role;
     }
 
-    public void setRole(Collection<Role> roles) {
-        this.roles = roles;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
 }
