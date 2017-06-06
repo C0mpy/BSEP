@@ -1,5 +1,5 @@
 angular
-    .module("myApp", ['ngResource', 'ngRoute', 'restangular', 'lodash', 'directive.g+signin'])
+    .module("myApp", ['ngResource', 'ngRoute', 'ngCookies', 'restangular', 'lodash', 'directive.g+signin'])
     .config(["$routeProvider", function($routeProvider) {
         $routeProvider
             .when("/", {

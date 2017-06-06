@@ -7,7 +7,6 @@ import com.timsedam.models.Role;
 import com.timsedam.models.User;
 import com.timsedam.repository.RoleRepository;
 import com.timsedam.security.TokenUtils;
-import com.timsedam.services.LogService;
 import com.timsedam.services.OperatorService;
 import com.timsedam.services.UserDetailsServiceImpl;
 import com.timsedam.services.UserService;
@@ -49,7 +48,6 @@ public class OperatorController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     public ResponseEntity login(@RequestBody UserDTO userDTO) {
-        System.out.println("Atleast i arrived");
         Authentication authentication = null;
         UsernamePasswordAuthenticationToken token = null;
         try {

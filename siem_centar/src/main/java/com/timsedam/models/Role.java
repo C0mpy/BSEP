@@ -16,16 +16,12 @@ public class Role {
     @OneToMany(mappedBy = "role")
     private Collection<User> users;
 
-    @OneToMany(mappedBy = "role")
-    private Collection<Privilege> privileges;
-
     public Role() {
     }
 
-    public Role(String name, Collection<User> users, Collection<Privilege> privileges) {
+    public Role(String name, Collection<User> users) {
         this.name = name;
         this.users = users;
-        this.privileges = privileges;
     }
 
     public Long getId() {
@@ -52,11 +48,4 @@ public class Role {
         this.users = users;
     }
 
-    public Collection<Privilege> getPrivileges() {
-        return privileges;
-    }
-
-    public void setPrivileges(Collection<Privilege> privileges) {
-        this.privileges = privileges;
-    }
 }

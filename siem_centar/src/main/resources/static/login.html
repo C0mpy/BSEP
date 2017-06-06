@@ -13,7 +13,7 @@
                     <input ng-model="pass" type="password" class="form-control" id="pwd" placeholder="Enter password">
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-default">Submit</button>
+                    <button ng-click="login(loginCtrl.email, loginCtrl.pass)" class="btn btn-default">Submit</button>
                 </div>
             </form>
             <row>
