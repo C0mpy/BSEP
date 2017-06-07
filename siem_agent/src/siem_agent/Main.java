@@ -16,11 +16,15 @@ public class Main {
 		JSONParser parser = new JSONParser();
 		
 		JSONObject cfg = (JSONObject) parser.parse(new FileReader("config.json"));
-				
+
+		StateHandler state_handler= new StateHandler();
+
 		for(Object m:(JSONArray) cfg.get("monitors")){
 			JSONObject monitor_cfg = (JSONObject) m;
 			if(((String) monitor_cfg.get("type")).equals("filemonitor")){
-			    Thread t = new Thread(new FileMonitor(monitor_cfg,new Sender((JSONObject) cfg.get("sender"))));
+			    Thread t = new Thread(new FileMonitor(	monitor_cfg,
+														new Sender((JSONObject) cfg.get("sender")),
+														state_handler));
 				t.start();
 			}
 		}	

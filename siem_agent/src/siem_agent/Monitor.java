@@ -4,12 +4,14 @@ import org.json.simple.JSONObject;
 
 public class Monitor implements Runnable {
 	
-	private String agentId;
+	protected String agentId;
+	protected StateHandler state_handler;
 	private Sender sender;
 	
-	Monitor(JSONObject cfg,Sender sender) {	
+	Monitor(JSONObject cfg,Sender sender,StateHandler state_handler) {
 		agentId= (String) cfg.get("id");
 		this.sender = sender;
+		this.state_handler=state_handler;
 	}
 	
 	
@@ -18,7 +20,7 @@ public class Monitor implements Runnable {
 				
 	}
 	
-	protected void dispatch_log(String line){
+	void dispatch_log(String line){
 		JSONObject json = new JSONObject();
 		json.put("agentId", agentId);
 		json.put("log", line);
