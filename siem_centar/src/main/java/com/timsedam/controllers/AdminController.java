@@ -2,11 +2,8 @@ package com.timsedam.controllers;
 
 import com.timsedam.dto.ResponseDTO;
 import com.timsedam.dto.UserDTO;
-import com.timsedam.models.Role;
-import com.timsedam.models.User;
-import com.timsedam.repository.RoleRepository;
 import com.timsedam.security.TokenUtils;
-import com.timsedam.services.AdminService;
+import com.timsedam.services.UserDetailsServiceImpl;
 import com.timsedam.services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,26 +14,20 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.xml.ws.Response;
 
 @RestController
 @RequestMapping(value = "/api/admin")
 public class AdminController {
 
     @Autowired
-    private AdminService service;
-
-    @Autowired
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private UserDetailsService userDetailsService;
+    private UserDetailsServiceImpl userDetailsService;
 
     @Autowired
     private TokenUtils tokenUtils;

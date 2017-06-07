@@ -33,16 +33,18 @@ public class DataLoader implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
-        Permission loginPermission = new Permission("LOGIN");
+        //Permission loginPermission = new Permission("LOGIN");
 
         Role operatorRole = new Role("OPERATOR");
-        operatorRole.getPermissions().add(loginPermission);
+        //operatorRole.getPermissions().add(loginPermission);
+
         Role adminRole = new Role("ADMINISTRATOR");
 
         User admin = new User("admin@admin.com", adminRole);
         admin.setPassword(encoder.encode("admin"));;
 
-        permissionRepository.save(loginPermission);
+        //permissionRepository.save(loginPermission);
+
         roleRepository.save(operatorRole);
         roleRepository.save(adminRole);
         userRepository.save(admin);

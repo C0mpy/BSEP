@@ -7,7 +7,6 @@ import com.timsedam.models.Role;
 import com.timsedam.models.User;
 import com.timsedam.repository.RoleRepository;
 import com.timsedam.security.TokenUtils;
-import com.timsedam.services.OperatorService;
 import com.timsedam.services.UserDetailsServiceImpl;
 import com.timsedam.services.UserService;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -27,9 +26,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "/api/operator")
 public class OperatorController {
-
-    @Autowired
-    private OperatorService service;
 
     @Autowired
     AuthenticationManager authenticationManager;

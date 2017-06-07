@@ -1,5 +1,6 @@
 package com.timsedam.security;
 
+import com.timsedam.services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,14 +22,16 @@ public class AuthenticationTokenFilter extends UsernamePasswordAuthenticationFil
     private TokenUtils tokenUtils;
 
     @Autowired
-    private UserDetailsService userDetailsService;
+    private UserDetailsServiceImpl userDetailsService;
 
     // definisemo nas filter
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
+        // dobavljamo token iz zaglavlja zahteva
         String authToken = httpRequest.getHeader("X-Auth-Token");
+        // dobijamo username iz tokena
         String username = tokenUtils.getUsernameFromToken(authToken);
 
         // ako prosledjeni username nije null i korisnik nije vec autentifikovan
@@ -38,12 +41,9 @@ public class AuthenticationTokenFilter extends UsernamePasswordAuthenticationFil
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpRequest));
-                // postavljaju se korisnikove info u sesiju jer je autentifikovan
+                // cuvamo informaciju o autentikovanom korisniku
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
-        }
-        else if (SecurityContextHolder.getContext().getAuthentication() != null) {
-            int i = 1;
         }
 
         // nastavlja se lanac filtera
