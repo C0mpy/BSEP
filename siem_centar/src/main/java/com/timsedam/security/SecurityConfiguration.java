@@ -21,7 +21,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
 
-    // definisemo konfiguraciju za autentikaciju, koristi se UserDetailsImpl za aut, i BCrypt za sifrovanje u bazi
+    // definisemo konfiguraciju za autentikaciju, koristi se UserDetailsImpl za pronalazenje korisnika
+    // i BCrypt za sifrovanje u bazi
     @Override
     protected void configure(AuthenticationManagerBuilder auth) {
         try {
@@ -67,6 +68,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .authorizeRequests();
+
                 /*
                 .antMatchers( "/api/operator/login")
                 .hasAuthority("LOGIN")
