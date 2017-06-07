@@ -23,6 +23,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.xml.ws.Response;
+
 @RestController
 @RequestMapping(value = "/api/admin")
 public class AdminController {
@@ -42,7 +44,7 @@ public class AdminController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    @RequestMapping(value = "/login", method = RequestMethod.POST, consumes = " application/json", produces = "application/json")
     public ResponseEntity login(@RequestBody UserDTO userDTO) {
         System.out.println("Atlast i arrived");
         try {
@@ -52,7 +54,8 @@ public class AdminController {
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
             UserDetails details = userDetailsService.loadUserByUsername(userDTO.getEmail());
-            return new ResponseEntity<ResponseDTO>(new ResponseDTO(tokenUtils.generateToken(details)), HttpStatus.OK);
+            ResponseEntity<ResponseDTO> resp = new ResponseEntity<ResponseDTO>(new ResponseDTO(tokenUtils.generateToken(details)), HttpStatus.OK);
+            return resp;
         } catch (Exception ex) {
             return new ResponseEntity<ResponseDTO>(new ResponseDTO("login failed"), HttpStatus.UNAUTHORIZED);
         }

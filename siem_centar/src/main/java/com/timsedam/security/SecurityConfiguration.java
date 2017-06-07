@@ -55,7 +55,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .csrf()
-                .ignoringAntMatchers("/", "/api/operator/login", "/api/admin/")
+                .ignoringAntMatchers("/", "/api/operator/login", "/api/admin/login")
                 .and()
 
                 .sessionManagement()
