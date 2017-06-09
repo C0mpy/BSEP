@@ -1,8 +1,11 @@
 package com.timsedam.controllers;
 
+import com.timsedam.dto.LogDTO;
 import com.timsedam.dto.ResponseDTO;
 import com.timsedam.dto.UserDTO;
+import com.timsedam.models.Log;
 import com.timsedam.security.TokenUtils;
+import com.timsedam.services.LogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +28,9 @@ public class AgentController {
     private UserDetailsService userDetailsService;
 
     @Autowired
+    private LogService logService;
+
+    @Autowired
     private AuthenticationManager authenticationManager;
 
     @Autowired
@@ -44,6 +50,16 @@ public class AgentController {
         } catch (Exception ex) {
             return new ResponseEntity<ResponseDTO>(new ResponseDTO("login failed"), HttpStatus.UNAUTHORIZED);
         }
+    }
+
+    @RequestMapping(value = "/savelog", method = RequestMethod.POST, consumes = "application/json")
+    public ResponseEntity<String> saveLogs(@RequestBody LogDTO logDTO) {
+
+        Log log = new Log();
+        log.setAgentId(logDTO.getAgentId());
+        log.setLog(logDTO.getLog());
+        logService.save(log);
+        return new ResponseEntity<String>("Log is saved in database", HttpStatus.OK);
     }
 
 }
