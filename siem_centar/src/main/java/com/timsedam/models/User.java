@@ -1,11 +1,8 @@
 package com.timsedam.models;
 
-import com.timsedam.dto.UserDTO;
-
-import java.io.Serializable;
-import java.util.Collection;
-
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class User {

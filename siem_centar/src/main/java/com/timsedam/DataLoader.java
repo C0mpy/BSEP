@@ -1,5 +1,6 @@
 package com.timsedam;
 
+import com.timsedam.models.Permission;
 import com.timsedam.models.Role;
 import com.timsedam.models.User;
 import com.timsedam.repository.PermissionRepository;
@@ -36,23 +37,33 @@ public class DataLoader implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
-        //Permission loginPermission = new Permission("LOGIN");
+        Permission p = permissionRepository.getOneByName("SEND_LOG");
+        if(p == null) {
+            Permission sendLogPermission = new Permission("SEND_LOG");
+            Role operatorRole = new Role("OPERATOR");
+            Role adminRole = new Role("ADMINISTRATOR");
+            Role agentRole = new Role("AGENT");
 
-        Role operatorRole = new Role("OPERATOR");
-        //operatorRole.getPermissions().add(loginPermission);
+            agentRole.getPermissions().add(sendLogPermission);
 
-        Role adminRole = new Role("ADMINISTRATOR");
+            User admin = new User("admin@admin.com", adminRole);
+            User agent = new User("agent", agentRole);
 
-        User admin = new User("admin@admin.com", adminRole);
-        admin.setPassword(encoder.encode("admin"));;
+            admin.setPassword(encoder.encode("admin"));
+            agent.setPassword(encoder.encode("agent"));
 
-        //permissionRepository.save(loginPermission);
+            permissionRepository.save(sendLogPermission);
 
-        roleRepository.save(operatorRole);
-        roleRepository.save(adminRole);
-        userRepository.save(admin);
+            roleRepository.save(operatorRole);
+            roleRepository.save(adminRole);
+            roleRepository.save(agentRole);
 
-        kieSession.insert(admin);
-        kieSession.fireAllRules();
+            userRepository.save(admin);
+            userRepository.save(agent);
+
+        }
+        // kieSession.insert(admin);
+        // kieSession.fireAllRules();
+
     }
 }

@@ -3,8 +3,6 @@ package com.timsedam.controllers;
 import com.timsedam.dto.ResponseDTO;
 import com.timsedam.dto.UserDTO;
 import com.timsedam.security.TokenUtils;
-import com.timsedam.services.UserDetailsServiceImpl;
-import com.timsedam.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,26 +11,24 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/api/admin")
-public class AdminController {
+@RequestMapping(value="/api/agent")
+public class AgentController {
+
+    @Autowired
+    private UserDetailsService userDetailsService;
 
     @Autowired
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private UserDetailsServiceImpl userDetailsService;
-
-    @Autowired
     private TokenUtils tokenUtils;
-
-    @Autowired
-    private UserService userService;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST, consumes = " application/json", produces = "application/json")
     public ResponseEntity login(@RequestBody UserDTO userDTO) {
@@ -48,6 +44,6 @@ public class AdminController {
         } catch (Exception ex) {
             return new ResponseEntity<ResponseDTO>(new ResponseDTO("login failed"), HttpStatus.UNAUTHORIZED);
         }
-
     }
+
 }
