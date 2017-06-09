@@ -1,4 +1,5 @@
-{	
+{
+
 	"monitors":[
 		{
 			"id":"1",
@@ -14,12 +15,15 @@
 		}
 	],
 	"sender":{
+		"id":"agent",
+		"key":"agent",
 		"url_base":"https://",
 		"host":"localhost",
 		"port":"8443",
 		"username":"admin",
 		"password":"admin",
 		"method":"POST",
-		"method_url":"/api/logs/save"
+		"post_url":"/api/agent/savelog",
+		"auth_url":"/api/agent/login"
 	}
 }

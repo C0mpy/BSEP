@@ -19,15 +19,21 @@ public class Main {
 
 		StateHandler state_handler= new StateHandler();
 
-		for(Object m:(JSONArray) cfg.get("monitors")){
-			JSONObject monitor_cfg = (JSONObject) m;
-			if(((String) monitor_cfg.get("type")).equals("filemonitor")){
-			    Thread t = new Thread(new FileMonitor(	monitor_cfg,
-														new Sender((JSONObject) cfg.get("sender")),
-														state_handler));
-				t.start();
-			}
-		}	
+		Sender sender=new Sender((JSONObject)cfg.get("sender"));
+
+		if(sender.authenticate()) {
+            for (Object m : (JSONArray) cfg.get("monitors")) {
+                JSONObject monitor_cfg = (JSONObject) m;
+                if (((String) monitor_cfg.get("type")).equals("filemonitor")) {
+                    Thread t = new Thread(new FileMonitor(monitor_cfg,
+                            sender,
+                            state_handler));
+                    t.start();
+                }
+            }
+        }else{
+		    System.out.println("Agent failed to authenticate");
+        }
 	}
 
 }

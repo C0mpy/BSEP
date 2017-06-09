@@ -1,9 +1,6 @@
 package siem_agent;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -31,7 +28,12 @@ public class Sender {
 	String authentication ;
 	String host;
 	String port;
-	String method_url;
+	String post_url;
+	String auth_url;
+	String id;
+	String key;
+
+	String JWT;
 	
 	public Sender(JSONObject cfg) {
 		
@@ -42,15 +44,17 @@ public class Sender {
 		host=(String) cfg.get("host");
 		port=(String) cfg.get("port");
 		authentication = userName + ':' + password;
-		method_url= (String) cfg.get("method_url");
+		post_url= (String) cfg.get("post_url");
+		id=(String) cfg.get("id");
+		key=(String) cfg.get("key");
+		auth_url = (String) cfg.get("auth_url");
 	}
 
-	public int sendPostRequest(JSONObject json) throws IOException {
+	public synchronized int sendPostRequest(JSONObject json) throws IOException {
 
 		// connection and authentication
-		
 
-		String url = URL_BASE + host + ":" + port + "/api/logs/save";
+		String url = URL_BASE + host + ":" + port + post_url;
 		URL obj = new URL(url);
 
 		// open HTTPS connection
@@ -63,6 +67,38 @@ public class Sender {
 		BASE64Encoder encoder = new BASE64Encoder();
 		String encoded = encoder.encode((authentication).getBytes("UTF-8"));
 		con.setRequestProperty("Authorization", "Basic " + encoded);
+		con.setRequestProperty("X-Auth-Token",JWT);
+		// Send post request
+		con.setDoOutput(true);
+		DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+		wr.writeBytes(json.toString());
+		wr.flush();
+		wr.close();
+
+		int responseCode = con.getResponseCode();
+		System.out.println("Response Code : " + responseCode);
+
+		return responseCode;
+	}
+
+	public synchronized boolean authenticate() throws IOException {
+		JSONObject json = new JSONObject();
+		json.put("email",id);
+		json.put("password",key);
+
+		String url = URL_BASE + host + ":" + port + auth_url;
+		URL obj = new URL(url);
+
+		// open HTTPS connection
+		HttpURLConnection con = null;
+		con = (HttpsURLConnection) obj.openConnection();
+		((HttpsURLConnection) con).setHostnameVerifier(new MyHostnameVerifier());
+		con.setRequestProperty("Content-Type", "application/json");
+
+		con.setRequestMethod("POST");
+		BASE64Encoder encoder = new BASE64Encoder();
+		String encoded = encoder.encode((authentication).getBytes("UTF-8"));
+		con.setRequestProperty("Authorization", "Basic " + encoded);
 
 		// Send post request
 		con.setDoOutput(true);
@@ -72,29 +108,51 @@ public class Sender {
 		wr.close();
 
 		int responseCode = con.getResponseCode();
-		//System.out.println("\nSending 'POST' request to URL : " + url);
-		//System.out.println("Post parameters : " + json.toString());
 		System.out.println("Response Code : " + responseCode);
-		
-		
-		/*
-		BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-		String inputLine;
-		StringBuffer response = new StringBuffer();
 
-		while ((inputLine = in.readLine()) != null) {
-			response.append(inputLine);
-		}
-		in.close();
+					//izvuci token iz odgovora
+		this.JWT=readInputStreamToString(con);// this.JWT sacuvaj token tu
 
-		// print result
-		System.out.println(response.toString());*/
-		return responseCode;
+		//ako nesto nije kul
+		if(responseCode!=200)return false;
+		return true;
 	}
-	
+
 	//obrisi posle
-	public void  send(String log){
+	public synchronized void  send(String log){
 		System.out.println(log);
+	}
+
+	private String readInputStreamToString(HttpURLConnection connection) {
+		String result = null;
+		StringBuffer sb = new StringBuffer();
+		InputStream is = null;
+
+		try {
+			is = new BufferedInputStream(connection.getInputStream());
+			BufferedReader br = new BufferedReader(new InputStreamReader(is));
+			String inputLine = "";
+			while ((inputLine = br.readLine()) != null) {
+				sb.append(inputLine);
+			}
+			result = sb.toString();
+		}
+		catch (Exception e) {
+
+			result = null;
+		}
+		finally {
+			if (is != null) {
+				try {
+					is.close();
+				}
+				catch (IOException e) {
+
+				}
+			}
+		}
+
+		return result;
 	}
 
 }

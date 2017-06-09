@@ -45,10 +45,10 @@ public class AgentController {
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
             UserDetails details = userDetailsService.loadUserByUsername(userDTO.getEmail());
-            ResponseEntity<ResponseDTO> resp = new ResponseEntity<ResponseDTO>(new ResponseDTO(tokenUtils.generateToken(details)), HttpStatus.OK);
+            ResponseEntity<String> resp = new ResponseEntity<String>(tokenUtils.generateToken(details), HttpStatus.OK);
             return resp;
         } catch (Exception ex) {
-            return new ResponseEntity<ResponseDTO>(new ResponseDTO("login failed"), HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<String>("login failed", HttpStatus.UNAUTHORIZED);
         }
     }
 

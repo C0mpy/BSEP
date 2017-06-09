@@ -71,7 +71,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
 
                 .antMatchers( "/api/agent/savelog")
-                .hasAuthority("SAVE_LOG")
+                .hasAuthority("SEND_LOG")
                 .and()
                 .authorizeRequests();
                 /*
