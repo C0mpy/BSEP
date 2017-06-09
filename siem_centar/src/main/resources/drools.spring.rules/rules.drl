@@ -1,0 +1,10 @@
+package drools.spring.rules;
+
+import com.timsedam.models.User;
+
+rule "show user"
+    when
+        $u: User()
+    then
+        System.out.println($u.getEmail());
+end

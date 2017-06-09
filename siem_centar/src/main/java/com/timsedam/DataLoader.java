@@ -1,11 +1,11 @@
 package com.timsedam;
 
-import com.timsedam.models.Permission;
 import com.timsedam.models.Role;
 import com.timsedam.models.User;
 import com.timsedam.repository.PermissionRepository;
 import com.timsedam.repository.RoleRepository;
 import com.timsedam.repository.UserRepository;
+import org.kie.api.runtime.KieSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -22,12 +22,15 @@ public class DataLoader implements ApplicationRunner {
 
     private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
+    private KieSession kieSession;
+
     @Autowired
     public DataLoader(RoleRepository roleRepository, PermissionRepository permissionRepository,
-                      UserRepository userRepository) {
+                      UserRepository userRepository, KieSession kieSession) {
         this.roleRepository = roleRepository;
         this.permissionRepository = permissionRepository;
         this.userRepository = userRepository;
+        this.kieSession = kieSession;
     }
 
     @Override
@@ -48,5 +51,8 @@ public class DataLoader implements ApplicationRunner {
         roleRepository.save(operatorRole);
         roleRepository.save(adminRole);
         userRepository.save(admin);
+
+        kieSession.insert(admin);
+        kieSession.fireAllRules();
     }
 }

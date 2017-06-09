@@ -9,12 +9,13 @@ import com.timsedam.repository.RoleRepository;
 import com.timsedam.security.TokenUtils;
 import com.timsedam.services.UserDetailsServiceImpl;
 import com.timsedam.services.UserService;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.core.Authentication;
+import org.kie.api.runtime.KieSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -42,6 +43,9 @@ public class OperatorController {
     @Autowired
     private RoleRepository roleRepository;
 
+    @Autowired
+    private KieSession kieSession;
+
     @RequestMapping(value = "/login", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     public ResponseEntity login(@RequestBody UserDTO userDTO) {
         Authentication authentication = null;
@@ -64,10 +68,16 @@ public class OperatorController {
 
             token = new UsernamePasswordAuthenticationToken(userDTO.getEmail(), userDTO.getPassword());
             authentication = authenticationManager.authenticate(token);
+
         }
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         UserDetails details = userDetailsService.loadUserByUsername(userDTO.getEmail());
+
+        kieSession.insert(new User(userDTO.getEmail(), userDTO.getPassword(), new Role("OPERATOR")));
+        kieSession.fireAllRules();
+        System.out.println(kieSession.getFactCount());
+
         return new ResponseEntity<ResponseDTO>(new ResponseDTO(tokenUtils.generateToken(details)), HttpStatus.OK);
     }
 
