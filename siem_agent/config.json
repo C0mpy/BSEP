@@ -2,28 +2,32 @@
 
 	"monitors":[
 		{
-			"id":"1",
-			"type":"filemonitor",
-			"url":"/home/sirko/Desktop/login.txt",
-			"delaytime":2000
+			"id"	:	"1",
+			"type"	:	"filemonitor",
+			"url"	:	"/home/sirko/Desktop/login.txt",
+			"log_line_num"	:	5,
+			"delaytime"	:	2000,
+			"regex"	:	"([A-Z a-z 0-9 \\/\\.:#_@-]+)"
 		},
 		{
-			"id":"2",
-			"type":"filemonitor",
-			"url":"/home/sirko/Desktop/bandcamp.txt",
-			"delaytime":2000
+			"id"	:	"2",
+			"type"	:	"filemonitor",
+			"url"	:	"/home/sirko/Desktop/bandcamp.txt",
+			"log_line_num"	:	1,
+			"delaytime"	:	2000,
+			"regex" :	"(https:\\/\\/[a-z A-z 0-9]+\\.[a-z A-z 0-9]+\\.[a-z]+)"
 		}
 	],
 	"sender":{
-		"id":"agent",
-		"key":"agent",
-		"url_base":"https://",
-		"host":"localhost",
-		"port":"8443",
-		"username":"admin",
-		"password":"admin",
-		"method":"POST",
-		"post_url":"/api/agent/savelog",
-		"auth_url":"/api/agent/login"
+		"id"	:	"agent",
+		"key"	:	"agent",
+		"url_base"	:	"https://",
+		"host"	:	"localhost",
+		"port"	:	"8443",
+		"username"	:	"admin",
+		"password"	:	"admin",
+		"method"	:	"POST",
+		"post_url"	:	"/api/agent/savelog",
+		"auth_url"	:	"/api/agent/login"
 	}
 }
