@@ -7,7 +7,8 @@
 			"url"	:	"/home/sirko/Desktop/login.txt",
 			"log_line_num"	:	5,
 			"delaytime"	:	2000,
-			"regex"	:	"([A-Z a-z 0-9 \\/\\.:#_@-]+)"
+			"regex"	:	"([A-Z a-z 0-9 \\/\\.:#_@-]+)",
+			"structure":""
 		},
 		{
 			"id"	:	"2",
@@ -15,7 +16,8 @@
 			"url"	:	"/home/sirko/Desktop/bandcamp.txt",
 			"log_line_num"	:	1,
 			"delaytime"	:	2000,
-			"regex" :	"(https:\\/\\/[a-z A-z 0-9]+\\.[a-z A-z 0-9]+\\.[a-z]+)"
+			"regex" :	"(https:\\/\\/[a-z A-z 0-9]+\\.[a-z A-z 0-9]+\\.[a-z]+)",
+			"structure":""
 		}
 	],
 	"sender":{

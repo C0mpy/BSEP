@@ -16,6 +16,7 @@ public class FileMonitor extends Monitor {
 	private long delaytime;
 	private long log_line_num;
 	private String regex;
+	private String structure;
 
 
 	FileMonitor(JSONObject cfg,Sender sender,StateHandler state_handler) {
@@ -25,6 +26,7 @@ public class FileMonitor extends Monitor {
 		delaytime=(long) cfg.get("delaytime");
 		log_line_num=(long) cfg.get("log_line_num");
 		regex =	(String) cfg.get("regex");
+		structure=(String) cfg.get("structure");
 
 		//readState();
 
@@ -101,6 +103,7 @@ public class FileMonitor extends Monitor {
     	json.put("monitorId",id);
     	json.put("log",line);
     	json.put("regex",regex);
+    	json.put("structure",structure);
     	sender.sendPostRequest(json);
 	}
 }

@@ -4,6 +4,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Entity
 public class Log {
@@ -24,6 +27,10 @@ public class Log {
 	@Column(nullable = false)
 	private String regex;
 
+	@Column(nullable = false)
+	private String structure;
+
+	public Map<String,String> data;
 	
 	public Log(){}
 
@@ -67,7 +74,25 @@ public class Log {
 		this.regex = regex;
 	}
 
-	
+	public String getStructure() {
+		return structure;
+	}
+
+	public void setStructure(String structure) {
+		this.structure = structure;
+	}
+
+	public void parseLogData(){
+		Pattern p=Pattern.compile(regex);
+		Matcher m=p.matcher(log);
+
+		if(m.matches()){
+			String[] atr_names = structure.split(" ");
+			for (int i = 0; i < atr_names.length; i++) {
+				this.data.put(atr_names[i], m.group(i));
+			}
+		}
+	}
 	
 	
 }

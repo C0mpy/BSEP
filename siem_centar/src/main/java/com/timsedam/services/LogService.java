@@ -16,4 +16,11 @@ public class LogService {
 	public Log save(Log log) {
 		return repository.save(log);
 	}
+
+	public Log get(long id){
+		Log l=repository.findOne(id);
+		l.parseLogData();
+		return l;
+	}
+
 }

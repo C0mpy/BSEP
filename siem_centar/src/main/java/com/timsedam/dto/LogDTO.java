@@ -5,6 +5,7 @@ public class LogDTO {
 	private String monitorId;
 	private String log;
 	private String regex;
+	private String structure;
 	
 	public LogDTO(){}
 	
@@ -38,5 +39,12 @@ public class LogDTO {
 
 	public void setRegex(String regex) {
 		this.regex = regex;
+	}
+	public String getStructure() {
+		return structure;
+	}
+
+	public void setStructure(String structure) {
+		this.structure = structure;
 	}
 }
