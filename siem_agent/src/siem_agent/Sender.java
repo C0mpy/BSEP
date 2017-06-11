@@ -52,6 +52,8 @@ public class Sender {
 
 	public synchronized int sendPostRequest(JSONObject json) throws IOException {
 
+
+		json.put("agentId",id);
 		// connection and authentication
 
 		String url = URL_BASE + host + ":" + port + post_url;

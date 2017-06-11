@@ -2,7 +2,9 @@ package com.timsedam.dto;
 
 public class LogDTO {
 	private String agentId;
+	private String monitorId;
 	private String log;
+	private String regex;
 	
 	public LogDTO(){}
 	
@@ -21,6 +23,20 @@ public class LogDTO {
 	public void setLog(String log) {
 		this.log = log;
 	}
-	
-	
+
+	public String getMonitorId() {
+		return monitorId;
+	}
+
+	public void setMonitorId(String monitorId) {
+		this.monitorId = monitorId;
+	}
+
+	public String getRegex() {
+		return regex;
+	}
+
+	public void setRegex(String regex) {
+		this.regex = regex;
+	}
 }

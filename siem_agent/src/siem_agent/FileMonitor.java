@@ -98,8 +98,9 @@ public class FileMonitor extends Monitor {
     void dispatch_log(String line) throws IOException {
     	sender.send(line);
     	JSONObject json=new JSONObject();
-    	json.put("agentId",id);
+    	json.put("monitorId",id);
     	json.put("log",line);
+    	json.put("regex",regex);
     	sender.sendPostRequest(json);
 	}
 }

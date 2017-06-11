@@ -58,6 +58,8 @@ public class AgentController {
         Log log = new Log();
         log.setAgentId(logDTO.getAgentId());
         log.setLog(logDTO.getLog());
+        log.setMonitorId(logDTO.getMonitorId());
+        log.setRegex(logDTO.getRegex());
         logService.save(log);
         return new ResponseEntity<String>("Log is saved in database", HttpStatus.OK);
     }
