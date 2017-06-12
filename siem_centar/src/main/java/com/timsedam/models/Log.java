@@ -1,9 +1,6 @@
 package com.timsedam.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -30,6 +27,7 @@ public class Log {
 	@Column(nullable = false)
 	private String structure;
 
+	@Transient
 	public Map<String,String> data;
 	
 	public Log(){}
