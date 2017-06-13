@@ -56,7 +56,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .csrf()
-                .ignoringAntMatchers("/api/operator/login", "/api/admin/login", "/api/agent/login",
+                .ignoringAntMatchers("/api/operator/login", "/api/admin/login", "/api/agent/login","api/operator/getLogsByMonitor",
                         "/api/agent/savelog")
                 .and()
 
@@ -65,7 +65,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
 
-                .antMatchers( "/api/operator/login", "/api/admin/login", "/api/agent/login")
+                .antMatchers( "/api/operator/login", "/api/admin/login", "/api/agent/login","api/operator/getLogsByMonitor")
                 .permitAll()
                 .and()
                 .authorizeRequests()

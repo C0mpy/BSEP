@@ -3,10 +3,12 @@ package com.timsedam.controllers;
 
 import com.timsedam.dto.ResponseDTO;
 import com.timsedam.dto.UserDTO;
+import com.timsedam.models.Log;
 import com.timsedam.models.Role;
 import com.timsedam.models.User;
 import com.timsedam.repository.RoleRepository;
 import com.timsedam.security.TokenUtils;
+import com.timsedam.services.LogService;
 import com.timsedam.services.UserDetailsServiceImpl;
 import com.timsedam.services.UserService;
 import org.kie.api.runtime.KieSession;
@@ -19,10 +21,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/api/operator")
@@ -39,6 +41,9 @@ public class OperatorController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private LogService logService;
 
     @Autowired
     private RoleRepository roleRepository;
@@ -81,5 +86,11 @@ public class OperatorController {
         return new ResponseEntity<ResponseDTO>(new ResponseDTO(tokenUtils.generateToken(details)), HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/getLogsByMonitor/{monitor_id}", method = RequestMethod.GET)
+    public ResponseEntity<List<Log>> get(@PathVariable String monitor_id) {
+
+        List<Log> l=logService.findAllByMonitorId(monitor_id);
+        return new ResponseEntity<List<Log>>(l,HttpStatus.OK);
+    }
 
 }

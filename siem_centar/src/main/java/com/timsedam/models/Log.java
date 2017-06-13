@@ -1,7 +1,10 @@
 package com.timsedam.models;
 
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -28,13 +31,7 @@ public class Log {
 	private String structure;
 
 	@Transient
-	public Map<String,String> data;
-	
-	public Log(){}
-
-	public Long getId() {
-		return id;
-	}
+	public Map<String,String> data=new HashMap<String, String>() ;
 
 	public void setId(Long id) {
 		this.id = id;
