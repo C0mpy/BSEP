@@ -1,0 +1,25 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <h1>TimSedam's SIEM Center!</h1>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div><br><br><hr>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+
+        </div>
+        <div class="col-md-9">
+            <table>
+                <tr><td ng-repeat="attr in monitorCtrl.log_structure">{{attr}}</td></tr>
+                <tr ng-repeat="log in monitorCtrl.logs">
+                    <td ng-repeat="key in monitorCtrl.log_structure">{{log.data[key]}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

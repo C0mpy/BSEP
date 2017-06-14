@@ -84,7 +84,7 @@ public class Log {
 		if(m.matches()){
 			String[] atr_names = structure.split(" ");
 			for (int i = 0; i < atr_names.length; i++) {
-				this.data.put(atr_names[i], m.group(i));
+				this.data.put(atr_names[i], m.group(i+1));
 			}
 		}
 	}

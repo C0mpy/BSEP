@@ -7,6 +7,11 @@ angular
                 controller: "loginController",
                 controllerAs: "loginCtrl"
             })
+            .when("/monitor/:id",{
+                templateUrl:"../monitor.html",
+                controller:"monitorController",
+                controllerAs:"monitorCtrl"
+            })
             .otherwise({
                 redirectTo: "/"
             });
