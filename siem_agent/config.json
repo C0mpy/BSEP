@@ -2,20 +2,13 @@
 
 	"monitors":[
 		{
-			"id"	:	"1",
-			"type"	:	"filemonitor",
-			"url"	:	"/home/sirko/Desktop/login.txt",
-			"log_line_num"	:	5,
-			"delaytime"	:	2000,
-			"regex"	:	"([A-Z a-z 0-9 \\/\\.:#_@-]+)",
-			"structure":""
-		},
-		{
 			"id"	:	"2",
 			"type"	:	"filemonitor",
 			"url"	:	"/var/log/syslog.1",
 			"log_line_num"	:	1,
 			"delaytime"	:	2000,
+			"logName"	: "System",
+			"system"	: "Linux",
 			"regex" :	"([A-Z][a-z]{2})\\s([0-9]{2})\\s([0-9]{2}:[0-9]{2}:[0-9]{2})\\s([a-zA-Z0-9-]+)\\s([a-zA-Z0-9-\\[\\]]+:)\\s(.+)",
 			"structure":"mesec dan vreme ime_kompa proces poruka"
 		},
@@ -25,7 +18,7 @@
 			"delaytime"	:	2000,
 			"logName"	: "Application",
 			"system"	: "Windows",
-			"regex" : "([0-9]+)\\s([a-zA-Z0-9-]+)\\s([A-Z][a-z]{2},\\s[A-Z][a-z]{2}\\s[0-9]{2},\\s[0-9]{4}\\s[0-9]{2}:[0-9]{2}:[0-9]{2}\\s[A-Z]{2}\\sUTC)\\s([a-zA-Z0-9-]+)\\s([a-zA-Z0-9-()\\s]*[a-zA-Z0-9-()]+):\\s([\\S\\s.]*)",
+			"regex" : "([0-9]+)\\s([A-Z][a-z]{2},\\s[A-Z][a-z]{2}\\s[0-9]{2},\\s[0-9]{4}\\s[0-9]{2}:[0-9]{2}:[0-9]{2}\\s[A-Z]{2}\\sUTC)\\s([a-zA-Z0-9-]+)\\s([a-zA-Z0-9-()\\s]*[a-zA-Z0-9-()]+):\\s([\\S\\s.]*)",
 			"structure":"number type time computer source message"
 		}
 	],

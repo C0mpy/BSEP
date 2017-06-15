@@ -8,7 +8,8 @@ public class LogDTO {
 	private String structure;
 	private String system;
 	private String logName;
-	
+	private String type;
+
 	public LogDTO(){}
 	
 	public String getAgentId() {
@@ -64,6 +65,14 @@ public class LogDTO {
 
 	public void setLogName(String logName) {
 		this.logName = logName;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 	
 	

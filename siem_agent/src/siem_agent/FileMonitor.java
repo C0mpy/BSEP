@@ -18,6 +18,9 @@ public class FileMonitor extends Monitor {
 	//private long log_line_num;
 	private String regex;
 	private String structure;
+	private String system;
+	private String log_name;
+	private String type;
 
 
 	FileMonitor(JSONObject cfg,Sender sender,StateHandler state_handler) {
@@ -28,7 +31,8 @@ public class FileMonitor extends Monitor {
 		//log_line_num=(long) cfg.get("log_line_num");
 		regex =	(String) cfg.get("regex");
 		structure=(String) cfg.get("structure");
-
+		system = (String) cfg.get("system");
+		log_name = (String)	cfg.get("log_name");
 		//readState();
 
 		Runtime.getRuntime().addShutdownHook(new Thread(){
@@ -56,7 +60,11 @@ public class FileMonitor extends Monitor {
 					Matcher m=p.matcher(text);
 
 					while(m.find()) {
-						this.dispatch_log(m.group());
+						String line=m.group();
+						type="info";
+						if(line.toUpperCase().contains("WARNING")||line.toUpperCase().contains("WARN")) type="warning";
+						if(line.toUpperCase().contains("ERROR") ) type="error";
+						this.dispatch_log(line);
 					}
 
 					//line by line reader
@@ -110,6 +118,9 @@ public class FileMonitor extends Monitor {
     	json.put("log",line);
     	json.put("regex",regex);
     	json.put("structure",structure);
+    	json.put("system",system);
+    	json.put("log_name",log_name);
+    	json.put("type",type);
     	sender.sendPostRequest(json);
 	}
 }

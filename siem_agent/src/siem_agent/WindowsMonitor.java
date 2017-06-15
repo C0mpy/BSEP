@@ -10,7 +10,6 @@ import org.json.simple.JSONObject;
 
 import com.sun.jna.platform.win32.Advapi32Util.EventLogIterator;
 import com.sun.jna.platform.win32.Advapi32Util.EventLogRecord;
-
 public class WindowsMonitor extends Monitor {
 
 	private long delaytime;
@@ -78,7 +77,7 @@ public class WindowsMonitor extends Monitor {
 						message="";
 					}
 					
-					String log = recordNumber+" "+logType+" "+time+" "+computerName+" "+source+": "+message; 
+					String log = recordNumber+" "+time+" "+computerName+" "+source+": "+message;
 					this.dispatch_log(log);
 				}
 				
@@ -102,6 +101,7 @@ public class WindowsMonitor extends Monitor {
     	json.put("system",system);
     	json.put("logName",logName);
     	json.put("structure",structure);
+    	json.put("type",logType);
     	sender.sendPostRequest(json);
 	}
 

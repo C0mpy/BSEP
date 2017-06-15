@@ -42,6 +42,9 @@ public class Log {
 	@Column(nullable = false)
 	private String logName;
 
+	@Column(nullable = false)
+	private String type;
+
 	@Transient
 	public Map<String,String> data=new HashMap<String, String>() ;
 	
@@ -105,6 +108,14 @@ public class Log {
 
 	public void setLogName(String logName) {
 		this.logName = logName;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public void parseLogData(){
