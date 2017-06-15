@@ -1,8 +1,12 @@
 package siem_agent;
 
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 import javax.net.ssl.HostnameVerifier;
@@ -50,6 +54,7 @@ public class Sender {
 		auth_url = (String) cfg.get("auth_url");
 	}
 
+	@SuppressWarnings("unchecked")
 	public synchronized int sendPostRequest(JSONObject json) throws IOException {
 
 
@@ -83,6 +88,7 @@ public class Sender {
 		return responseCode;
 	}
 
+	@SuppressWarnings("unchecked")
 	public synchronized boolean authenticate() throws IOException {
 		JSONObject json = new JSONObject();
 		json.put("email",id);

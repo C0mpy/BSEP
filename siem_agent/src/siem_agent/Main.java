@@ -26,10 +26,16 @@ public class Main {
             for (Object m : (JSONArray) cfg.get("monitors")) {
                 JSONObject monitor_cfg = (JSONObject) m;
                 if (((String) monitor_cfg.get("type")).equals("filemonitor")) {
-                    Thread t = new Thread(new FileMonitor(monitor_cfg,
-                            sender,
-                            state_handler));
-                    t.start();
+                    	Thread t = new Thread(new FileMonitor(monitor_cfg,
+                                sender,
+                                state_handler));
+                        t.start();           
+                }else if(((String) monitor_cfg.get("type")).equals("windowsmonitor")){
+
+                		Thread t = new Thread(new WindowsMonitor(monitor_cfg,
+                                sender,
+                                state_handler));
+                        t.start();
                 }
             }
         }else{

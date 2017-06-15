@@ -18,6 +18,15 @@
 			"delaytime"	:	2000,
 			"regex" :	"([A-Z][a-z]{2})\\s([0-9]{2})\\s([0-9]{2}:[0-9]{2}:[0-9]{2})\\s([a-zA-Z0-9-]+)\\s([a-zA-Z0-9-\\[\\]]+:)\\s(.+)",
 			"structure":"mesec dan vreme ime_kompa proces poruka"
+		},
+		{
+			"id"	:	"3",
+			"type"	:	"windowsmonitor",
+			"delaytime"	:	2000,
+			"logName"	: "Application",
+			"system"	: "Windows",
+			"regex" : "([0-9]+)\\s([a-zA-Z0-9-]+)\\s([A-Z][a-z]{2},\\s[A-Z][a-z]{2}\\s[0-9]{2},\\s[0-9]{4}\\s[0-9]{2}:[0-9]{2}:[0-9]{2}\\s[A-Z]{2}\\sUTC)\\s([a-zA-Z0-9-]+)\\s([a-zA-Z0-9-()\\s]*[a-zA-Z0-9-()]+):\\s([\\S\\s.]*)",
+			"structure":"number type time computer source message"
 		}
 	],
 	"sender":{

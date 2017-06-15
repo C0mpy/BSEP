@@ -1,6 +1,7 @@
 package siem_agent;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.charset.StandardCharsets;
@@ -14,7 +15,7 @@ public class FileMonitor extends Monitor {
 	private File logfile;
 	private long filepointer;
 	private long delaytime;
-	private long log_line_num;
+	//private long log_line_num;
 	private String regex;
 	private String structure;
 
@@ -24,7 +25,7 @@ public class FileMonitor extends Monitor {
 		logfile= new File((String) cfg.get("url"));
 		filepointer=0;
 		delaytime=(long) cfg.get("delaytime");
-		log_line_num=(long) cfg.get("log_line_num");
+		//log_line_num=(long) cfg.get("log_line_num");
 		regex =	(String) cfg.get("regex");
 		structure=(String) cfg.get("structure");
 
@@ -76,6 +77,9 @@ public class FileMonitor extends Monitor {
 				}
 				f.close();
 				Thread.sleep(delaytime);					
+			}catch(FileNotFoundException ex){
+				System.out.println("Monitor "+id+" nije podrzan na ovom operativnom sistemu.\n");
+				monitor=false;
 			}catch(Exception e){
 				e.printStackTrace();
 				monitor=false;
@@ -84,6 +88,7 @@ public class FileMonitor extends Monitor {
 	}
 
 	//cuvanje pointera u logfajlu
+	@SuppressWarnings("unchecked")
 	void saveState(){
 	    JSONObject state=new JSONObject();
 	    state.put("filepointer",filepointer);
@@ -97,7 +102,8 @@ public class FileMonitor extends Monitor {
 	   if(state!=null) filepointer=(long) state.get("filepointer");
     }
 
-    void dispatch_log(String line) throws IOException {
+    @SuppressWarnings("unchecked")
+	void dispatch_log(String line) throws IOException {
     	sender.send(line);
     	JSONObject json=new JSONObject();
     	json.put("monitorId",id);

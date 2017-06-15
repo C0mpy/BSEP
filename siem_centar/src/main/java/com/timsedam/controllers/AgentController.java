@@ -1,11 +1,5 @@
 package com.timsedam.controllers;
 
-import com.timsedam.dto.LogDTO;
-import com.timsedam.dto.ResponseDTO;
-import com.timsedam.dto.UserDTO;
-import com.timsedam.models.Log;
-import com.timsedam.security.TokenUtils;
-import com.timsedam.services.LogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +13,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.timsedam.dto.LogDTO;
+import com.timsedam.dto.UserDTO;
+import com.timsedam.models.Log;
+import com.timsedam.security.TokenUtils;
+import com.timsedam.services.LogService;
 
 @RestController
 @RequestMapping(value="/api/agent")
@@ -37,7 +37,7 @@ public class AgentController {
     private TokenUtils tokenUtils;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST, consumes = " application/json", produces = "application/json")
-    public ResponseEntity login(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<String> login(@RequestBody UserDTO userDTO) {
         try {
             UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(userDTO.getEmail(), userDTO.getPassword());
             Authentication authentication = authenticationManager.authenticate(token);
@@ -61,6 +61,8 @@ public class AgentController {
         log.setMonitorId(logDTO.getMonitorId());
         log.setRegex(logDTO.getRegex());
         log.setStructure(logDTO.getStructure());
+        log.setSystem(logDTO.getSystem());
+        log.setLogName(logDTO.getLogName());
         logService.save(log);
         return new ResponseEntity<String>("Log is saved in database", HttpStatus.OK);
     }

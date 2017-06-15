@@ -2,8 +2,6 @@ package siem_agent;
 
 import org.json.simple.JSONObject;
 
-import java.io.IOException;
-
 public class Monitor implements Runnable {
 	
 	protected String id;

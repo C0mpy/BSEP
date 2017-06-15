@@ -36,7 +36,8 @@ public class StateHandler {
         }
     }
 
-    public synchronized void setState(String monitor_id,JSONObject state){
+    @SuppressWarnings("unchecked")
+	public synchronized void setState(String monitor_id,JSONObject state){
         this.states.put(monitor_id,state);
     }
 

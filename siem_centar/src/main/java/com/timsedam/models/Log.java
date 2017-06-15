@@ -1,12 +1,16 @@
 package com.timsedam.models;
 
-import javax.persistence.*;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.Transient;
 
 @Entity
 public class Log {
@@ -15,6 +19,7 @@ public class Log {
 	@GeneratedValue
 	private Long id;
 	
+	@Lob
 	@Column(nullable = false)
 	private String log;
 	
@@ -24,14 +29,23 @@ public class Log {
 	@Column(nullable = false)
 	private String monitorId;
 
+	@Lob
 	@Column(nullable = false)
 	private String regex;
 
 	@Column(nullable = false)
 	private String structure;
+	
+	@Column(nullable = false)
+	private String system;
+	
+	@Column(nullable = false)
+	private String logName;
 
 	@Transient
 	public Map<String,String> data=new HashMap<String, String>() ;
+	
+	public Log(){}
 
 	public void setId(Long id) {
 		this.id = id;
@@ -75,6 +89,22 @@ public class Log {
 
 	public void setStructure(String structure) {
 		this.structure = structure;
+	}
+
+	public String getSystem() {
+		return system;
+	}
+
+	public void setSystem(String system) {
+		this.system = system;
+	}
+
+	public String getLogName() {
+		return logName;
+	}
+
+	public void setLogName(String logName) {
+		this.logName = logName;
 	}
 
 	public void parseLogData(){

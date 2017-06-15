@@ -6,6 +6,8 @@ public class LogDTO {
 	private String log;
 	private String regex;
 	private String structure;
+	private String system;
+	private String logName;
 	
 	public LogDTO(){}
 	
@@ -47,4 +49,22 @@ public class LogDTO {
 	public void setStructure(String structure) {
 		this.structure = structure;
 	}
+
+	public String getSystem() {
+		return system;
+	}
+
+	public void setSystem(String system) {
+		this.system = system;
+	}
+
+	public String getLogName() {
+		return logName;
+	}
+
+	public void setLogName(String logName) {
+		this.logName = logName;
+	}
+	
+	
 }
