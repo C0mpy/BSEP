@@ -32,7 +32,7 @@ public class FileMonitor extends Monitor {
 		regex =	(String) cfg.get("regex");
 		structure=(String) cfg.get("structure");
 		system = (String) cfg.get("system");
-		log_name = (String)	cfg.get("log_name");
+		log_name = (String)	cfg.get("logName");
 		//readState();
 
 		Runtime.getRuntime().addShutdownHook(new Thread(){
@@ -119,7 +119,7 @@ public class FileMonitor extends Monitor {
     	json.put("regex",regex);
     	json.put("structure",structure);
     	json.put("system",system);
-    	json.put("log_name",log_name);
+    	json.put("logName",log_name);
     	json.put("type",type);
     	sender.sendPostRequest(json);
 	}
