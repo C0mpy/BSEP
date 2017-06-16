@@ -14,11 +14,15 @@
         <div class="col-md-2"></div>
         <div class="col-md-10">
             <table class="table table-sm" id="t1">
-            	<thead><tr><th ng-repeat="attr in monitorCtrl.log_structure">{{attr}}</th></tr>
+            	<thead><tr><th style="width:calc(100%/{{monitorCtrl.log_structure.length}})" ng-repeat="attr in monitorCtrl.log_structure">{{attr}}</th></tr>
                 </thead>
                 <tbody>
-                 <tr class="text-warning" ng-repeat="log in monitorCtrl.logs"  ng-click="monitorCtrl.logDetails(log)">
-                    <td class="filterable-cell" ng-repeat="key in monitorCtrl.log_structure">{{log.data[key]}}</td>
+                 <tr class="text-warning" 
+                 ng-class="{blue: log['type']=='Informational' , 
+                    red: log['type']=='Error', yellow: log['type']=='Warning'}"
+                 ng-repeat="log in monitorCtrl.logs"  ng-click="monitorCtrl.logDetails(log)">
+                    <td style="width:calc(100%/{{monitorCtrl.log_structure.length}})" class="filterable-cell"
+                    ng-repeat="key in monitorCtrl.log_structure">{{log.data[key]}}</td>
                 </tr>
                 </tbody>
             </table>
@@ -36,19 +40,22 @@
             
             </ul>
             <br>
-            <table ng-show="monitorCtrl.logView">
+            <table id="t2" ng-show="monitorCtrl.logView">
             	<tr class="greenFont">
+            		<td>Type </td>
+            		<td>Log Name </td>
             		<td>System </td>
             		<td>Monitor ID </td>
-            		<td>Log Name </td>
+            		
             	</tr>
-            	<tr>
+            	<tr >
+            		<td>{{monitorCtrl.log['type']}}</td>
+            		<td>{{monitorCtrl.log['logName']}}</td>
             		<td>{{monitorCtrl.log['system']}}</td>
             		<td>{{monitorCtrl.log['monitorId']}}</td>
-            		<td>{{monitorCtrl.log['logName']}}</td>
             	</tr>
-            	<tr class="greenFont"><td colspan="3">Message</td></tr>
-            	<tr><td colspan="3">{{monitorCtrl.log.data['message']}}</td></tr>
+            	<tr class="greenFont"><td ng-show="monitorCtrl.log.data['message']" colspan="4">Message</td></tr>
+            	<tr><td colspan="4">{{monitorCtrl.log.data['message']}}</td></tr>
             </table>
             
         </div>

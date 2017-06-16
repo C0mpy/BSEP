@@ -30,42 +30,75 @@
 
 </head>
 <style>
+
 table#t1 {
-            border: 1px solid black;
-            width:100%;
-        }
+	border: 1px solid black;
+	width:100%;
+	
+}
 
-        table#t1 thead,table#t1 tbody,table#t1 tr,table#t1 td,table#t1 th { display: block; }
+table#t1 thead, table#t1 tbody, table#t1 tr, table#t1 td, table#t1 th { 
+	display: block; 
+}
 
-        table#t1 tr:after {
-            content: ' ';
-            display: block;
-            visibility: hidden;
-            clear: both;
-            
-        }
 
-        table#t1 tbody {
-            height: 250px;
-            width: 1020px;
-            overflow-y: auto;
-            overflow-x: hidden;
-        }
+table#t1 tr:after {
+	content: ' ';
+	display: block;
+	visibility: hidden;
+	clear: both;       
+}
 
-        table#t1 tbody td,table#t1 thead th {
-            width: 20%;
-            float: left;
-        }
+table#t1 tbody {
+	height: 250px;
+	width: 100%;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+table#t1 tbody td, table#t1 thead th {
+	
+	float: left;
+}
+
         
-        table#t1 tbody td{
-        	cursor: pointer;
-        }
+table#t1 tbody td{
+	cursor: pointer;
+}
         
-        .greenFont {
-			color: #008B8B;
-   			font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-		}
+table#t2 {
+	table-layout:fixed;
+	width: 100%;        
+}
+
+table#t2 td { 
+	padding-bottom: 2px;
+}
+        
+.greenFont {
+	color: #008B8B;
+   	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
 		
+.red {
+    background-color: #F2D7D5;
+    color: #85929E;
+    font-weight: bold;
+}
+
+.yellow {
+	background-color: #ffff94;
+	color: #85929E;
+	font-weight: bold;
+}
+		
+.blue {
+	background-color: #D6EAF8;
+	color: #85929E;
+    font-weight: bold;		
+}
+
+
 </style>
 
 <body ng-app="myApp">
