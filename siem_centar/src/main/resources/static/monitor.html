@@ -10,16 +10,47 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-3">
-
-        </div>
-        <div class="col-md-9">
-            <table>
-                <tr><td ng-repeat="attr in monitorCtrl.log_structure">{{attr}}</td></tr>
-                <tr ng-repeat="log in monitorCtrl.logs">
-                    <td ng-repeat="key in monitorCtrl.log_structure">{{log.data[key]}}</td>
+        	
+        <div class="col-md-2"></div>
+        <div class="col-md-10">
+            <table class="table table-sm" id="t1">
+            	<thead><tr><th ng-repeat="attr in monitorCtrl.log_structure">{{attr}}</th></tr>
+                </thead>
+                <tbody>
+                 <tr class="text-warning" ng-repeat="log in monitorCtrl.logs"  ng-click="monitorCtrl.logDetails(log)">
+                    <td class="filterable-cell" ng-repeat="key in monitorCtrl.log_structure">{{log.data[key]}}</td>
                 </tr>
+                </tbody>
             </table>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        	
+        <div class="col-md-2"></div>
+        <div class="col-md-10">
+        <ul class="nav nav-tabs">
+ 			<li class="active"><a href="">Details</a></li>
+            
+            </ul>
+            <br>
+            <table >
+            	<tr class="greenFont">
+            		<td>System </td>
+            		<td>Monitor ID </td>
+            		<td>Log Name </td>
+            	</tr>
+            	<tr>
+            		<td>{{monitorCtrl.log['system']}}</td>
+            		<td>{{monitorCtrl.log['monitorId']}}</td>
+            		<td>{{monitorCtrl.log['logName']}}</td>
+            	</tr>
+            	<tr class="greenFont"><td colspan="3">Message</td></tr>
+            	<tr><td colspan="3">{{monitorCtrl.log.data['message']}}</td></tr>
+            </table>
+            
         </div>
     </div>
 </div>
