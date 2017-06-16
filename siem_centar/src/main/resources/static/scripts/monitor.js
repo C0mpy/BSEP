@@ -4,6 +4,7 @@
     function monitorController($routeParams,$http, $cookies, $scope) {
         var self=this;
         self.logDetails = logDetails;
+        self.logView = false;
         
         self.logs=[]
 
@@ -14,8 +15,8 @@
         })
         
         function logDetails(log){
-        	alert(JSON.stringify(log));
         	self.log = log;
+        	self.logView = true;
         	   	
         }
         
