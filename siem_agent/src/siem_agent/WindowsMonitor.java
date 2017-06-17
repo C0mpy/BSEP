@@ -17,7 +17,7 @@ public class WindowsMonitor extends Monitor {
 	private String logName;
 	private String time;
 	private String logType;
-	private String recordNumber;
+	private long recordNumber;
 	private String source;
 	private String system;
 	private String regex;
@@ -34,14 +34,10 @@ public class WindowsMonitor extends Monitor {
 		structure=(String) cfg.get("structure");
 		logName=(String) cfg.get("logName");
 		regex=(String) cfg.get("regex");
+		logPointer = -1;
 		
-		// readState();
+		readState();
 
-		Runtime.getRuntime().addShutdownHook(new Thread() {
-			public void run() {
-				// saveState();
-			}
-		});
 	}
 	
 	@Override
@@ -50,8 +46,12 @@ public class WindowsMonitor extends Monitor {
 		while(monitor){
 			try{
 				EventLogIterator iter = new EventLogIterator(logName);
+				
+				if(logPointer!=-1){
+					while(iter.next().getRecordNumber()!=logPointer){}
+				}
+				
 				while (iter.hasNext()) {
-
 					EventLogRecord record = iter.next();
 					
 					//konverzija vremena prispeca loga(iz unix time-a u normalno vreme)
@@ -61,7 +61,7 @@ public class WindowsMonitor extends Monitor {
 					Date date = new Date();
 					date.setTime(t.getTime()*1000L);
 					
-					recordNumber = String.valueOf(record.getRecordNumber());
+					recordNumber = record.getRecordNumber();
 					logType = record.getType().toString();
 					time = sdf.format(date);
 					source = record.getSource();
@@ -81,6 +81,8 @@ public class WindowsMonitor extends Monitor {
 					
 					String log = recordNumber+" "+time+" "+computerName+" "+source+": "+message;
 					this.dispatchLog(log);
+					logPointer = recordNumber;
+					saveState();
 				}
 				
 				Thread.sleep(delaytime);

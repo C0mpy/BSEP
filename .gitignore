@@ -88,3 +88,4 @@ overridedb.*
 .factorypath
 dump.rdb
 transaction-logs
+temp.json
