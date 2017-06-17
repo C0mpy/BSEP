@@ -11,7 +11,17 @@
 <div class="container">
     <div class="row">
         	
-        <div class="col-md-2"></div>
+        <div class="col-md-2">
+            <form>
+                <h4>Filter Logs</h4>
+
+                <div class="form-group" ng-repeat="attr in monitorCtrl.log_structure">
+                    <p>{{attr}}:</p>
+                    <input type="text" class="form-control"
+                           ng-model="monitorCtrl[attr]">
+                </div>
+            </form>
+        </div>
         <div class="col-md-10">
             <table class="table table-sm" id="t1">
             	<thead><tr><th style="width:calc(100%/{{monitorCtrl.log_structure.length}})" ng-repeat="attr in monitorCtrl.log_structure">{{attr}}</th></tr>
@@ -20,7 +30,7 @@
                  <tr class="text-warning" 
                  ng-class="{blue: log['type']=='Informational' , 
                     red: log['type']=='Error', yellow: log['type']=='Warning'}"
-                 ng-repeat="log in monitorCtrl.logs"  ng-click="monitorCtrl.logDetails(log)">
+                 ng-repeat="log in monitorCtrl.logs | log: monitorCtrl"  ng-click="monitorCtrl.logDetails(log)">
                     <td style="width:calc(100%/{{monitorCtrl.log_structure.length}})" class="filterable-cell"
                     ng-repeat="key in monitorCtrl.log_structure">{{log.data[key]}}</td>
                 </tr>
