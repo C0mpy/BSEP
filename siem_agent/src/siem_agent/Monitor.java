@@ -1,8 +1,10 @@
 package siem_agent;
 
+import java.io.IOException;
+
 import org.json.simple.JSONObject;
 
-public class Monitor implements Runnable {
+public abstract class Monitor implements Runnable {
 	
 	protected String id;
 	protected StateHandler state_handler;
@@ -19,6 +21,10 @@ public class Monitor implements Runnable {
 	public void run() {
 				
 	}
+	
+	abstract void saveState();
+	abstract void readState();
+	abstract void dispatchLog(String line) throws IOException;
 	
 
 

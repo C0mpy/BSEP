@@ -24,6 +24,8 @@ public class WindowsMonitor extends Monitor {
 	private String computerName;
 	private String message;
 	
+	private long logPointer;
+	
 	WindowsMonitor(JSONObject cfg, Sender sender, StateHandler state_handler) {
 		super(cfg, sender, state_handler);
 		
@@ -78,7 +80,7 @@ public class WindowsMonitor extends Monitor {
 					}
 					
 					String log = recordNumber+" "+time+" "+computerName+" "+source+": "+message;
-					this.dispatch_log(log);
+					this.dispatchLog(log);
 				}
 				
 				Thread.sleep(delaytime);
@@ -91,8 +93,23 @@ public class WindowsMonitor extends Monitor {
 		
 	}
 	
+	//cuvanje pointera u logfajlu
 	@SuppressWarnings("unchecked")
-	void dispatch_log(String line) throws IOException {
+	void saveState(){
+		JSONObject state=new JSONObject();
+		state.put("logPointer",logPointer);
+		state_handler.setState(id,state);
+		state_handler.save();//cuvaj u temp fajl
+	}
+
+	//citanje pointera u logfajlu
+	void readState(){
+		JSONObject state = state_handler.getState(id);
+		if(state!=null) logPointer=(long) state.get("logPointer");
+	}
+	
+	@SuppressWarnings("unchecked")
+	void dispatchLog(String line) throws IOException {
     	sender.send(line);
     	JSONObject json=new JSONObject();
     	json.put("monitorId", id);

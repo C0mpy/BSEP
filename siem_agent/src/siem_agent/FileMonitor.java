@@ -64,7 +64,7 @@ public class FileMonitor extends Monitor {
 						type="info";
 						if(line.toUpperCase().contains("WARNING")||line.toUpperCase().contains("WARN")) type="warning";
 						if(line.toUpperCase().contains("ERROR") ) type="error";
-						this.dispatch_log(line);
+						this.dispatchLog(line);
 					}
 
 					//line by line reader
@@ -86,7 +86,7 @@ public class FileMonitor extends Monitor {
 				f.close();
 				Thread.sleep(delaytime);					
 			}catch(FileNotFoundException ex){
-				System.out.println("Monitor "+id+" nije podrzan na ovom operativnom sistemu.\n");
+				System.out.println("Monitor "+id+" nije pronasao fajl navedenu u config.json.\n");
 				monitor=false;
 			}catch(Exception e){
 				e.printStackTrace();
@@ -111,7 +111,7 @@ public class FileMonitor extends Monitor {
     }
 
     @SuppressWarnings("unchecked")
-	void dispatch_log(String line) throws IOException {
+	void dispatchLog(String line) throws IOException {
     	sender.send(line);
     	JSONObject json=new JSONObject();
     	json.put("monitorId",id);
