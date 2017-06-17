@@ -1,10 +1,9 @@
 package com.timsedam.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.timsedam.models.Log;
 import com.timsedam.repository.LogRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -32,6 +31,14 @@ public class LogService {
 			l.parseLogData();
 		}
 		return logs;
+	}
+
+	public List<String> findAllAgents() {
+		return repository.findAllAgents();
+	}
+
+	public List<String> findMonitors(String agentId) {
+		return repository.findMonitors(agentId);
 	}
 
 }

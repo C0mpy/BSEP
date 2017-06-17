@@ -56,8 +56,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .csrf()
-                .ignoringAntMatchers("/api/operator/login", "/api/admin/login", "/api/agent/login","api/operator/getLogsByMonitor",
-                        "/api/agent/savelog")
+                .ignoringAntMatchers("/api/operator/login", "/api/admin/login", "/api/agent/login",
+                        "api/operator/getLogsByMonitor", "/api/agent/savelog")
                 .and()
 
                 .sessionManagement()
@@ -73,13 +73,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers( "/api/agent/savelog")
                 .hasAuthority("SEND_LOG")
                 .and()
-                .authorizeRequests();
-                /*
-                .antMatchers( "/api/operator/login")
-                .hasAuthority("LOGIN")
+                .authorizeRequests()
+
+                .antMatchers( "/api/operator/getAllAgents")
+                .hasAuthority("GET_AGENTS")
+                .and()
+                .authorizeRequests()
+
+                .antMatchers("/api/operator/getMonitors/**")
+                .hasAuthority("GET_MONITORS")
                 .and()
                 .authorizeRequests();
-                */
 
         // dodajemo nas authenticationTokenFilterBean da se izvrsava pre UsernamePasswordAuthenticationFilter
         httpSecurity.addFilterBefore(authenticationTokenFilterBean(),

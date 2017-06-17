@@ -1,5 +1,5 @@
 angular
-    .module("myApp", ['ngResource', 'ngRoute', 'ngCookies', 'restangular', 'lodash', 'directive.g+signin'])
+    .module("myApp", ['ngResource', 'ngRoute', 'ngCookies', 'restangular', 'lodash', 'directive.g+signin', 'ui.bootstrap'])
     .config(["$routeProvider", function($routeProvider) {
         $routeProvider
             .when("/", {
@@ -7,10 +7,20 @@ angular
                 controller: "loginController",
                 controllerAs: "loginCtrl"
             })
-            .when("/monitor/:id",{
-                templateUrl:"../monitor.html",
-                controller:"monitorController",
-                controllerAs:"monitorCtrl"
+            .when("/agent/", {
+                templateUrl: "../agent.html",
+                controller: "agentController",
+                controllerAs: "agentCtrl"
+            })
+            .when("/monitor/:id", {
+                templateUrl: "../monitor.html",
+                controller: "monitorController",
+                controllerAs: "monitorCtrl"
+            })
+            .when("/log/:id", {
+                templateUrl: "../log.html",
+                controller: "logController",
+                controllerAs: "logCtrl"
             })
             .otherwise({
                 redirectTo: "/"

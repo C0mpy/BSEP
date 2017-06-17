@@ -24,7 +24,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/api/operator")
@@ -94,6 +93,22 @@ public class OperatorController {
 
         List<Log> l=logService.findAllByMonitorId(monitor_id);
         return new ResponseEntity<>(l,HttpStatus.OK);
+
     }
+    @RequestMapping(value = "/getAllAgents", method = RequestMethod.GET)
+    public ResponseEntity getAllAgents() {
+
+        List<String> agents = logService.findAllAgents();
+        return new ResponseEntity(agents, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/getMonitors/{agentId}", method = RequestMethod.GET)
+    public ResponseEntity getMonitors(@PathVariable String agentId) {
+
+        List<String> a = logService.findMonitors(agentId);
+        return new ResponseEntity(a, HttpStatus.OK);
+    }
+
+
 
 }

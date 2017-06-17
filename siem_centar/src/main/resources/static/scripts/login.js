@@ -1,7 +1,7 @@
 (function() {
     angular.module("myApp").controller("loginController", loginController);
 
-    function loginController($http, $cookies, $scope) {
+    function loginController($http, $cookies, $scope, $location) {
 
         var vm = this;
 
@@ -26,10 +26,8 @@
                 $http.post("/api/operator/login", data).then(function (response) {
                     $cookies.put("token", response.data.response);
                     // postavlja se token u svaki zahtev
-                    angular.module("myApp").config(['$httpProvider', function ($httpProvider) {
-                        $httpProvider.defaults.headers.post['X-Auth-Token'] = response.data;
-                    }]);
-
+                    $http.defaults.headers.common['X-Auth-Token'] = response.data.response;
+                    $location.path("/agent");
                 });
             });
         });

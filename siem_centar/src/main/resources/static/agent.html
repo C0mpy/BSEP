@@ -1,0 +1,18 @@
+<br><br>
+<div class="container">
+    <h2>Agents & Monitors:</h2>
+    <uib-accordion close-others="oneAtATime">
+        <div uib-accordion-group ng-repeat="agent in agentCtrl.agents"
+             class="panel panel-primary" is-open="status.open">
+            <uib-accordion-heading background-color="blue"  >
+                <div ng-click="agentCtrl.getMonitors(agent)">{{agent}}</div>
+            </uib-accordion-heading>
+            <div class="list-group">
+                <div ng-repeat="monitor in agentCtrl.monitors[agent]"
+                     ng-click="agentCtrl.selectMonitor(monitor)">
+                    <a class="list-group-item" href="javaScript:void(0);">{{monitor}}</a>
+                </div>
+            </div>
+        </div>
+    </uib-accordion>
+</div>

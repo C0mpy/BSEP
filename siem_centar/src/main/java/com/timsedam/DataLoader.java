@@ -40,10 +40,15 @@ public class DataLoader implements ApplicationRunner {
         Permission p = permissionRepository.getOneByName("SEND_LOG");
         if(p == null) {
             Permission sendLogPermission = new Permission("SEND_LOG");
+            Permission getAgentsPermission = new Permission("GET_AGENTS");
+            Permission getMonitorsPermission = new Permission ("GET_MONITORS");
+
             Role operatorRole = new Role("OPERATOR");
             Role adminRole = new Role("ADMINISTRATOR");
             Role agentRole = new Role("AGENT");
 
+            operatorRole.getPermissions().add(getAgentsPermission);
+            operatorRole.getPermissions().add(getMonitorsPermission);
             agentRole.getPermissions().add(sendLogPermission);
 
             User admin = new User("admin@admin.com", adminRole);
@@ -53,6 +58,8 @@ public class DataLoader implements ApplicationRunner {
             agent.setPassword(encoder.encode("agent"));
 
             permissionRepository.save(sendLogPermission);
+            permissionRepository.save(getAgentsPermission);
+            permissionRepository.save(getMonitorsPermission);
 
             roleRepository.save(operatorRole);
             roleRepository.save(adminRole);
