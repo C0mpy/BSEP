@@ -134,7 +134,7 @@ public class FileMonitor extends Monitor {
     	json.put("system",system);
     	json.put("logName",log_name);
     	json.put("type",type);
-    	json.put("time", time);
+    	json.put("date", time);
     	sender.sendPostRequest(json);
 	}
 }
