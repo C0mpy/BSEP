@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.charset.StandardCharsets;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -21,6 +23,8 @@ public class FileMonitor extends Monitor {
 	private String system;
 	private String log_name;
 	private String type;
+	private String time;
+	private SimpleDateFormat time_format;
 
 
 	FileMonitor(JSONObject cfg,Sender sender,StateHandler state_handler) {
@@ -33,6 +37,8 @@ public class FileMonitor extends Monitor {
 		structure=(String) cfg.get("structure");
 		system = (String) cfg.get("system");
 		log_name = (String)	cfg.get("logName");
+		time_format=new SimpleDateFormat((String)cfg.get("timeformat"));
+		
 		//readState();
 
 		Runtime.getRuntime().addShutdownHook(new Thread(){
@@ -42,6 +48,7 @@ public class FileMonitor extends Monitor {
 		});
 	}
 	
+	@SuppressWarnings("deprecation")
 	@Override
 	public void run(){
 		boolean monitor=true;
@@ -61,10 +68,16 @@ public class FileMonitor extends Monitor {
 
 					while(m.find()) {
 						String line=m.group();
+						final SimpleDateFormat sdf = new SimpleDateFormat("EEE, MMM d, yyyy hh:mm:ss a z");
+						Date d=this.time_format.parse(m.group(1));
+						d.setYear(new Date().getYear());
+						this.time=sdf.format(d);
 						type="info";
 						if(line.toUpperCase().contains("WARNING")||line.toUpperCase().contains("WARN")) type="warning";
 						if(line.toUpperCase().contains("ERROR") ) type="error";
+
 						this.dispatchLog(line);
+
 					}
 
 					//line by line reader
@@ -121,6 +134,7 @@ public class FileMonitor extends Monitor {
     	json.put("system",system);
     	json.put("logName",log_name);
     	json.put("type",type);
+    	json.put("time", time);
     	sender.sendPostRequest(json);
 	}
 }

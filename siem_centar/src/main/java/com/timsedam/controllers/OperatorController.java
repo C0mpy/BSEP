@@ -86,11 +86,14 @@ public class OperatorController {
         return new ResponseEntity<ResponseDTO>(new ResponseDTO(tokenUtils.generateToken(details)), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/getLogsByMonitor/{monitor_id}", method = RequestMethod.GET)
-    public ResponseEntity<List<Log>> get(@PathVariable String monitor_id) {
+    @RequestMapping(
+            value = "/getLogsByMonitor/{monitor_id}",
+            method = RequestMethod.GET,
+            produces= "application/json")
+    public ResponseEntity get(@PathVariable String monitor_id) {
 
         List<Log> l=logService.findAllByMonitorId(monitor_id);
-        return new ResponseEntity<List<Log>>(l,HttpStatus.OK);
+        return new ResponseEntity<>(l,HttpStatus.OK);
     }
 
 }
