@@ -25,9 +25,7 @@
         }
 
         function selectMonitor(monitor) {
-            console.log("ere here");
-            $cookies.put("monitor", monitor);
-            $location.path("/log/" + monitor);
+            $location.path("/monitor/" + monitor);
         }
 
     }

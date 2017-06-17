@@ -17,11 +17,6 @@ angular
                 controller: "monitorController",
                 controllerAs: "monitorCtrl"
             })
-            .when("/log/:id", {
-                templateUrl: "../log.html",
-                controller: "logController",
-                controllerAs: "logCtrl"
-            })
             .otherwise({
                 redirectTo: "/"
             });
