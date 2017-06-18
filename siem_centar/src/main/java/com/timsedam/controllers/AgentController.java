@@ -20,6 +20,9 @@ import com.timsedam.models.Log;
 import com.timsedam.security.TokenUtils;
 import com.timsedam.services.LogService;
 
+import java.util.Date;
+import java.text.SimpleDateFormat;
+
 @RestController
 @RequestMapping(value="/api/agent")
 public class AgentController {
@@ -53,19 +56,27 @@ public class AgentController {
     }
 
     @RequestMapping(value = "/savelog", method = RequestMethod.POST, consumes = "application/json")
-    public ResponseEntity<String> saveLogs(@RequestBody LogDTO logDTO) {
+    public ResponseEntity saveLogs(@RequestBody LogDTO logDTO) {
 
-        Log log = new Log();
-        log.setAgentId(logDTO.getAgentId());
-        log.setLog(logDTO.getLog());
-        log.setMonitorId(logDTO.getMonitorId());
-        log.setRegex(logDTO.getRegex());
-        log.setStructure(logDTO.getStructure());
-        log.setSystem(logDTO.getSystem());
-        log.setLogName(logDTO.getLogName());
-        log.setType(logDTO.getType());
-        logService.save(log);
-        return new ResponseEntity<String>("Log is saved in database", HttpStatus.OK);
+        try {
+            Log log = new Log();
+            log.setAgentId(logDTO.getAgentId());
+            log.setLog(logDTO.getLog());
+            log.setMonitorId(logDTO.getMonitorId());
+            log.setRegex(logDTO.getRegex());
+            log.setStructure(logDTO.getStructure());
+            log.setSystem(logDTO.getSystem());
+            log.setLogName(logDTO.getLogName());
+            log.setType(logDTO.getType());
+            SimpleDateFormat sdf = new SimpleDateFormat("EEE, MMM d, yyyy hh:mm:ss a z");
+            Date d = sdf.parse(logDTO.getDate());
+            log.setDate(d);
+            logService.save(log);
+            return new ResponseEntity<>("Log is saved in database", HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>("Error", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 
 }

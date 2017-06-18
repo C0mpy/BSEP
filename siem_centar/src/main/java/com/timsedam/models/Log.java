@@ -1,5 +1,6 @@
 package com.timsedam.models;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -44,6 +45,9 @@ public class Log {
 
 	@Column(nullable = false)
 	private String type;
+
+	@Column(nullable=false)
+	private Date date;
 
 	@Transient
 	public Map<String,String> data=new HashMap<String, String>() ;
@@ -116,6 +120,14 @@ public class Log {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 	public void parseLogData(){
