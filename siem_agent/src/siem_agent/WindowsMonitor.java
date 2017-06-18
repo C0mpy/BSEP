@@ -65,7 +65,7 @@ public class WindowsMonitor extends Monitor {
 					logType = record.getType().toString();
 					time = sdf.format(date);
 					source = record.getSource();
-
+					
 					String result = jWMI.getWMIValue("Select * from Win32_NTLogEvent where "
 							+ "Logfile='"+logName+"' and RecordNumber=" + record.getRecordNumber(), "ComputerName,Message");
 					

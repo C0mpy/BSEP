@@ -21,7 +21,6 @@ public class Main {
 
 		Sender sender=new Sender((JSONObject)cfg.get("sender"));
 
-        //if(true) {
 		if(sender.authenticate()) {
             for (Object m : (JSONArray) cfg.get("monitors")) {
                 JSONObject monitor_cfg = (JSONObject) m;

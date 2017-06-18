@@ -10,7 +10,7 @@
 			"logName"	: "System",
 			"system"	: "Linux",
 			"regex" :	"([A-Z][a-z]{2}\\s[0-9]{2}\\s[0-9]{2}:[0-9]{2}:[0-9]{2})\\s([a-zA-Z0-9-]+)\\s([a-zA-Z0-9-\\[\\]]+:)\\s(.+)",
-			"structure":"date comuter source message",
+			"structure":"time computer source message",
 			"timeformat" : "MMM dd hh:mm:ss"
 		},
 		{
