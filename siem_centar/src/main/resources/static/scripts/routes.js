@@ -18,6 +18,11 @@ angular
                 controller: "monitorController",
                 controllerAs: "monitorCtrl"
             })
+            .when("/metrics", {
+                templateUrl: "../metrics.html",
+                controller: "metricsController",
+                controllerAs: "vm"
+            })
             .otherwise({
                 redirectTo: "/"
             });
@@ -29,4 +34,9 @@ angular
             }
             return true;
         });
-    }]);
+    }])
+    .run(function($rootScope, $http, $location, $cookies) {
+            if ($cookies.get("token")) {
+               $http.defaults.headers.common['X-Auth-Token'] =  $cookies.get("token");
+            }
+     });

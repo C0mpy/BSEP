@@ -1,6 +1,7 @@
 package com.timsedam.controllers;
 
 
+import com.timsedam.dto.MetricDTO;
 import com.timsedam.dto.ResponseDTO;
 import com.timsedam.dto.UserDTO;
 import com.timsedam.models.Log;
@@ -109,6 +110,22 @@ public class OperatorController {
         return new ResponseEntity(a, HttpStatus.OK);
     }
 
+    @RequestMapping(
+            value="/getLogNumber",
+            method = RequestMethod.POST,
+            consumes="application/json",
+            produces="text/plain"
+    )
+    public ResponseEntity getLogNum(@RequestBody MetricDTO metricDTO){
 
+
+        String log_num=logService.getLogNum(
+                metricDTO.getAgent(),metricDTO.getMonitor(),
+                metricDTO.getStart(),metricDTO.getEnd()
+        );
+        System.out.println(log_num);
+
+        return new ResponseEntity(log_num,HttpStatus.OK);
+    }
 
 }

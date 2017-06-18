@@ -1,0 +1,36 @@
+
+
+<div class="container">
+    <h2>Metrics</h2>
+    <hr>
+    <div class="row">
+        <div class="col-md-3">
+            <label for="select_agent">Select agent:</label>
+            <select class="form-control" id="select_agent" ng-model="vm.agent_id" >
+                <option selected="selected" value="all">All</option>
+                <option ng-repeat="agent in vm.agents" value="{{agent}}">{{agent}}</option>
+            </select>
+            <label for="select_monitor">Select monitor:</label>
+            <select class="form-control" id="select_monitor" ng-model="vm.monitor_id" >
+                <option selected="selected" value="all">All</option>
+                <option ng-repeat="monitor in vm.monitors[vm.agent_id]" value="{{monitor}}">{{monitor}}</option>
+            </select>
+
+           <label for="date1">Select start date:</label>
+            <input id="date1" type="date" ng-model="vm.date1">
+            <label for="date2">Select end date:</label>
+            <input id="date2" type="date" ng-model="vm.date2">
+            <hr>
+            <button ng-click="vm.get_metrics()">get metrics</button>
+        </div>
+        <div class="col-md-9">
+            <h3>Number of LOGS in <b>{{vm.agent_id}}</b> for <b>{{vm.monitor_id}}</b> monitor/s </h3>
+            <h3>from <b>{{vm.date1.toDateString()}}</b> to <b>{{vm.date2.toDateString()}}</b></h3>
+            <h3>is <b>{{vm.log_num}}</b></h3>
+            <hr>
+            <h3>Number of ALARMS in <b>{{vm.agent_id}}</b> for <b>{{vm.monitor_id}}</b>  </h3>
+            <h3>from <b>{{vm.date1.toDateString()}}</b> to <b>{{vm.date2.toDateString()}}</b></h3>
+            <h3>is <b>{{vm.alarm_num}}</b></h3>
+        </div>
+    </div>
+</div>

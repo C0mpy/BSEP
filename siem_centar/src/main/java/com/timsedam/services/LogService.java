@@ -5,6 +5,7 @@ import com.timsedam.repository.LogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -41,4 +42,5 @@ public class LogService {
 		return repository.findMonitors(agentId);
 	}
 
+	public String getLogNum(String agentId, String monitorId , Date start, Date end){return repository.getLogNum(agentId,monitorId,start,end);}
 }
