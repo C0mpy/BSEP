@@ -11,6 +11,12 @@
                         flag = false;
                     }
                 });
+                if(scope["type"] !== undefined &&
+                    (l["type"].toLowerCase()).indexOf(scope["type"].toLowerCase()) === -1)
+                    flag = false;
+                if(scope["type"] !== undefined &&
+                    (l["logName"].toLowerCase()).indexOf(scope["logName"].toLowerCase()) === -1)
+                    flag = false;
                 if(flag)
                     result.push(l);
             });
