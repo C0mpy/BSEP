@@ -30,7 +30,7 @@
                 $http.get('api/operator/getAlarms/'+vm.agent_id+"/"+vm.monitor_id).then(function(response){
 
                     console.log(JSON.stringify(response))
-
+                    vm.alarms=response.data;
                 })
             }else{
                 con("parameters not selected");

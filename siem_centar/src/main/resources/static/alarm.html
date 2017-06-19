@@ -14,6 +14,11 @@
                 <option ng-repeat="monitor in vm.monitors[vm.agent_id]" value="{{monitor}}">{{monitor}}</option>
             </select>
             <button ng-click="vm.get_alarms()">Get Alarms</button>
+            <hr>
+            <table>
+                <tr ng-repeat="alarm in vm.alarms">
+                    <td>{{alarm.name}}</td><td>{{alarm.date.toDateString()}}</td><td>{{alarm.message}}</td>
+            </table>
         </div>
     </uib-tab>
     <uib-tab index="1" heading="Create alarm rules">

@@ -39,11 +39,12 @@ public class FileMonitor extends Monitor {
 		log_name = (String)	cfg.get("logName");
 		time_format=new SimpleDateFormat((String)cfg.get("timeformat"));
 		
-		//readState();
+		readState();
 
 		Runtime.getRuntime().addShutdownHook(new Thread(){
 			public void run(){
-			//	saveState();
+
+				saveState();
 			}
 		});
 	}
@@ -61,6 +62,9 @@ public class FileMonitor extends Monitor {
 
 					byte[] b=new byte[(int) (file_length-filepointer)];
 					f.readFully( b);
+
+					filepointer=f.getFilePointer();
+					System.out.println(filepointer);
 					String text = new String(new String(b, StandardCharsets.US_ASCII));
 
 					Pattern p=Pattern.compile(regex);
@@ -78,9 +82,9 @@ public class FileMonitor extends Monitor {
 						}
 						d.setYear(new Date().getYear());
 						this.time=sdf.format(d);
-						type="info";
-						if(line.toUpperCase().contains("WARNING")||line.toUpperCase().contains("WARN")) type="warning";
-						if(line.toUpperCase().contains("ERROR") ) type="error";
+						type="Info";
+						if(line.toUpperCase().contains("WARNING")||line.toUpperCase().contains("WARN")) type="Warning";
+						if(line.toUpperCase().contains("ERROR") ) type="Error";
 
 						this.dispatchLog(line);
 
@@ -98,7 +102,6 @@ public class FileMonitor extends Monitor {
 					}
 					*/
 
-					filepointer=f.getFilePointer();
 				}else if(logfile.length() < filepointer){
 					filepointer=0;
 				}
