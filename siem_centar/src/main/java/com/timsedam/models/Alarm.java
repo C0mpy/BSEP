@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 
 @Entity
 public class Alarm {
@@ -20,6 +21,7 @@ public class Alarm {
 	@Column(nullable=false)
 	private Date date;
 	
+	@Lob
 	@Column(nullable = false)
 	private String message;
 	

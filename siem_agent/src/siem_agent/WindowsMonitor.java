@@ -23,6 +23,7 @@ public class WindowsMonitor extends Monitor {
 	private String regex;
 	private String computerName;
 	private String message;
+	private long eventId;
 	
 	private long logPointer;
 	
@@ -36,7 +37,7 @@ public class WindowsMonitor extends Monitor {
 		regex=(String) cfg.get("regex");
 		logPointer = -1;
 		
-		//readState();
+		readState();
 
 	}
 	
@@ -65,6 +66,7 @@ public class WindowsMonitor extends Monitor {
 					logType = record.getType().toString();
 					time = sdf.format(date);
 					source = record.getSource();
+					eventId = record.getEventId();
 					
 					String result = jWMI.getWMIValue("Select * from Win32_NTLogEvent where "
 							+ "Logfile='"+logName+"' and RecordNumber=" + record.getRecordNumber(), "ComputerName,Message");
@@ -79,10 +81,10 @@ public class WindowsMonitor extends Monitor {
 						message="";
 					}
 					
-					String log = recordNumber+" "+time+" "+computerName+" "+source+": "+message;
+					String log = eventId+" "+recordNumber+" "+time+" "+computerName+" "+source+": "+message;
 					this.dispatchLog(log);
 					logPointer = recordNumber;
-					//saveState();
+					saveState();
 				}
 				
 				Thread.sleep(delaytime);

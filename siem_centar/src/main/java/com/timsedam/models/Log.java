@@ -13,7 +13,13 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Transient;
 
+import org.kie.api.definition.type.Expires;
+import org.kie.api.definition.type.Role;
+import org.kie.api.definition.type.Timestamp;
+
 @Entity
+@Role(Role.Type.EVENT)
+@Expires("2h30m")
 public class Log {
 
 	@Id
@@ -129,6 +135,8 @@ public class Log {
 	public void setDate(Date date) {
 		this.date = date;
 	}
+	
+	
 
 	public void parseLogData(){
 		Pattern p=Pattern.compile(regex);

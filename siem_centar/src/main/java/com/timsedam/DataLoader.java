@@ -14,6 +14,7 @@ import com.timsedam.repository.AlarmRepository;
 import com.timsedam.repository.PermissionRepository;
 import com.timsedam.repository.RoleRepository;
 import com.timsedam.repository.UserRepository;
+import com.timsedam.services.AlarmService;
 
 @Component
 public class DataLoader implements ApplicationRunner {
@@ -28,6 +29,9 @@ public class DataLoader implements ApplicationRunner {
     private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     private KieSession kieSession;
+    
+    @Autowired
+    private AlarmService alarmService;
 
     @Autowired
     public DataLoader(RoleRepository roleRepository, PermissionRepository permissionRepository,
@@ -75,7 +79,7 @@ public class DataLoader implements ApplicationRunner {
             
 
         }
-        
+        kieSession.setGlobal("alarmService", alarmService);
         kieSession.insert(new User("admin@admin.com", new Role("ADMINISTRATOR")));
         kieSession.fireAllRules();
         

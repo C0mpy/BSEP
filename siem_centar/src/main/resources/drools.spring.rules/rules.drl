@@ -8,17 +8,33 @@ import java.util.Date;
 
 global com.timsedam.services.AlarmService alarmService;
 
+declare AlarmTriggered
+    logId: Long
+end
+
 rule "Error log pristigao na server"
     when
         $l: Log(type=="Error")
     then
         System.out.println("Error log je pristigao na server!");
-        String s = "Podaci o kriticnom logu:\n\n"+$l.toString();
-    	alarmService.save(new Alarm("Error log pristigao na server", new Date(), s, $l.getMonitorId(), $l.getMonitorId()));
-    	
+        String message = "Podaci o kriticnom logu:\n\n"+$l.toString();
+    	alarmService.save(new Alarm("Error log pristigao na server", new Date(), message, $l.getMonitorId(), $l.getMonitorId()));
 end
 
-
+rule "10 neuspesnih logovanja za jedan minut na istom sistemu (Windows)"
+    when
+        $l1: Log( data.get('eventId')=="4625")
+        Number(intValue == 9) from accumulate(
+            $l2: Log(
+                $l1.data.get('number') < $l2.data.get('number'),
+                this meets[1m] $l1
+            ),
+            count($l2)
+        )
+    then
+        System.out.println("10 neuspesnih logovanja za jedan minut na istom sistemu (Windows)");
+        alarmService.save(new Alarm("Neuspesno logovanje", new Date(), "10 neuspesnih logovanja za jedan minut na istom sistemu (Windows)", $l1.getMonitorId(), $l1.getMonitorId()));
+end
 
 rule "show user"
     when

@@ -80,7 +80,8 @@ public class AgentController {
             Date d = sdf.parse(logDTO.getDate());
             log.setDate(d);
             logService.save(log);
-            kieSession.setGlobal("alarmService", alarmService);
+            
+            log.parseLogData();
             kieSession.insert(log);
             kieSession.fireAllRules();
             
