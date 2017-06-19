@@ -9,6 +9,7 @@ import com.timsedam.models.Role;
 import com.timsedam.models.User;
 import com.timsedam.repository.RoleRepository;
 import com.timsedam.security.TokenUtils;
+import com.timsedam.services.AlarmService;
 import com.timsedam.services.LogService;
 import com.timsedam.services.UserDetailsServiceImpl;
 import com.timsedam.services.UserService;
@@ -47,6 +48,9 @@ public class OperatorController {
 
     @Autowired
     private RoleRepository roleRepository;
+
+    @Autowired
+    private AlarmService alarmService;
 
     @Autowired
     private KieSession kieSession;
@@ -120,6 +124,24 @@ public class OperatorController {
 
 
         String log_num=logService.getLogNum(
+                metricDTO.getAgent(),metricDTO.getMonitor(),
+                metricDTO.getStart(),metricDTO.getEnd()
+        );
+        System.out.println(log_num);
+
+        return new ResponseEntity(log_num,HttpStatus.OK);
+    }
+
+    @RequestMapping(
+            value="/getAlarmNumber",
+            method = RequestMethod.POST,
+            consumes="application/json",
+            produces="text/plain"
+    )
+    public ResponseEntity getAlarmNum(@RequestBody MetricDTO metricDTO){
+
+
+        String log_num=alarmService.getAlarmNum(
                 metricDTO.getAgent(),metricDTO.getMonitor(),
                 metricDTO.getStart(),metricDTO.getEnd()
         );

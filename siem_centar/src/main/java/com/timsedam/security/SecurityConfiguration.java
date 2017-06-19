@@ -57,7 +57,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         httpSecurity
                 .csrf()
                 .ignoringAntMatchers("/api/operator/login", "/api/admin/login", "/api/agent/login",
-                        "api/operator/getLogsByMonitor", "/api/agent/savelog","/api/operator/getLogNumber")
+                        "api/operator/getLogsByMonitor", "/api/agent/savelog","/api/operator/getLogNumber","/api/operator/getAlarmNumber")
                 .and()
 
                 .sessionManagement()
@@ -66,7 +66,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
 
                 .antMatchers( "/api/operator/login", "/api/admin/login", "/api/agent/login",
-                        "api/operator/getLogsByMonitor","/api/operator/getLogNumber")
+                        "api/operator/getLogsByMonitor","/api/operator/getLogNumber","/api/operator/getAlarmNumber")
                 .permitAll()
                 .and()
                 .authorizeRequests()

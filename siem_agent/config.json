@@ -2,6 +2,18 @@
 
 	"monitors":[
 		{
+			"id"	:	"1",
+			"type"	:	"filemonitor",
+			"url"	:	"/var/log/tomcat7/localhost_access_log.2017-04-27.txt",
+			"log_line_num"	:	1,
+			"delaytime"	:	2000,
+			"logName"	: "Server",
+			"system"	: "Linux",
+			"regex" :	"(.+)\\s-\\s-\\s\\[(.+)\\]\\s\"([A-Z]+)\\s([a-zA-Z0-9/.]+)\\s(.+)\"\\s([0-9]{3})\\s([0-9-]+)",
+			"structure":"ip date method url protocol status size",
+			"timeformat" : "dd/MMM/yyyy:HH:mm:ss Z"
+		},
+		{
 			"id"	:	"2",
 			"type"	:	"filemonitor",
 			"url"	:	"/var/log/syslog.1",

@@ -37,11 +37,11 @@
                     vm.log_num=response.data
                 })
 
-                /* GET ALARM NUMBER
-                $http.get("api/operator/getLogNumber", {"agent":vm.agent_id, "monitor":vm.monitor_id,"start":vm.date1,"end":vm.date2}).then(function(response){
-                                    vm.log_num=response.data
+
+                $http.post("api/operator/getLogNumber", {"agent":vm.agent_id, "monitor":vm.monitor_id,"start":vm.date1,"end":vm.date2}).then(function(response){
+                                    vm.alarm_num=response.data
                                 })
-                */
+
         }
 
 

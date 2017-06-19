@@ -68,8 +68,14 @@ public class FileMonitor extends Monitor {
 
 					while(m.find()) {
 						String line=m.group();
+
+						//get date
 						final SimpleDateFormat sdf = new SimpleDateFormat("EEE, MMM d, yyyy hh:mm:ss a z");
-						Date d=this.time_format.parse(m.group(1));
+						Date d=new Date();
+						String[] st=structure.split(" ");
+						for(int i=0;i<st.length;i++){
+							if(st[i].equals("date")) d=this.time_format.parse(m.group(i+1));
+						}
 						d.setYear(new Date().getYear());
 						this.time=sdf.format(d);
 						type="info";
