@@ -29,7 +29,7 @@
             if(vm.agent_id && vm.monitor_id){
                 $http.get('api/operator/getAlarms/'+vm.agent_id+"/"+vm.monitor_id).then(function(response){
 
-                    console.log(JSON.stringify(response))
+                    console.log(response.data)
                     vm.alarms=response.data;
                 })
             }else{
