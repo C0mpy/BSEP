@@ -36,7 +36,7 @@ public class WindowsMonitor extends Monitor {
 		regex=(String) cfg.get("regex");
 		logPointer = -1;
 		
-		readState();
+		//readState();
 
 	}
 	
@@ -82,7 +82,7 @@ public class WindowsMonitor extends Monitor {
 					String log = recordNumber+" "+time+" "+computerName+" "+source+": "+message;
 					this.dispatchLog(log);
 					logPointer = recordNumber;
-					saveState();
+					//saveState();
 				}
 				
 				Thread.sleep(delaytime);
@@ -121,6 +121,7 @@ public class WindowsMonitor extends Monitor {
     	json.put("logName",logName);
     	json.put("structure",structure);
     	json.put("type",logType);
+    	json.put("date",time);
     	sender.sendPostRequest(json);
 	}
 

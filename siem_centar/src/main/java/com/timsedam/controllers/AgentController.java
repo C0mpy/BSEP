@@ -1,5 +1,9 @@
 package com.timsedam.controllers;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import org.kie.api.runtime.KieSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,10 +22,8 @@ import com.timsedam.dto.LogDTO;
 import com.timsedam.dto.UserDTO;
 import com.timsedam.models.Log;
 import com.timsedam.security.TokenUtils;
+import com.timsedam.services.AlarmService;
 import com.timsedam.services.LogService;
-
-import java.util.Date;
-import java.text.SimpleDateFormat;
 
 @RestController
 @RequestMapping(value="/api/agent")
@@ -32,12 +34,18 @@ public class AgentController {
 
     @Autowired
     private LogService logService;
+    
+    @Autowired
+    private AlarmService alarmService;
 
     @Autowired
     private AuthenticationManager authenticationManager;
 
     @Autowired
     private TokenUtils tokenUtils;
+    
+    @Autowired
+    private KieSession kieSession;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST, consumes = " application/json", produces = "application/json")
     public ResponseEntity<String> login(@RequestBody UserDTO userDTO) {
@@ -56,7 +64,7 @@ public class AgentController {
     }
 
     @RequestMapping(value = "/savelog", method = RequestMethod.POST, consumes = "application/json")
-    public ResponseEntity saveLogs(@RequestBody LogDTO logDTO) {
+    public ResponseEntity saveLog(@RequestBody LogDTO logDTO) {
 
         try {
             Log log = new Log();
@@ -72,8 +80,13 @@ public class AgentController {
             Date d = sdf.parse(logDTO.getDate());
             log.setDate(d);
             logService.save(log);
+            kieSession.setGlobal("alarmService", alarmService);
+            kieSession.insert(log);
+            kieSession.fireAllRules();
+            
             return new ResponseEntity<>("Log is saved in database", HttpStatus.OK);
         }catch (Exception e){
+        	e.printStackTrace();
             return new ResponseEntity<>("Error", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 

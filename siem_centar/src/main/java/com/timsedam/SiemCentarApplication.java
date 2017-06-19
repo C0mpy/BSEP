@@ -31,9 +31,10 @@ public class SiemCentarApplication extends SpringBootServletInitializer {
 		return kieContainer.newKieSession("session");
 	}
 	
+	/*
 	@Bean
 	public KieSession kieSession2(@Autowired KieContainer kieContainer) {
 		return kieContainer.newKieSession("session2");
-	}
+	}*/
 
 }

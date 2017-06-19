@@ -141,6 +141,13 @@ public class Log {
 			}
 		}
 	}
+
+	@Override
+	public String toString() {
+		return "Log [log=" + log + ", agentId=" + agentId + ", monitorId=" + monitorId + ", system=" + system
+				+ ", logName=" + logName + ", type=" + type + ", date=" + date + "]";
+	}
+	
 	
 	
 }

@@ -2,3 +2,27 @@ package drools.spring.rules;
 
 import com.timsedam.models.User;
 
+import com.timsedam.models.Alarm;
+import com.timsedam.models.Log;
+import java.util.Date;
+
+global com.timsedam.services.AlarmService alarmService;
+
+rule "Error log pristigao na server"
+    when
+        $l: Log(type=="Error")
+    then
+        System.out.println("Error log je pristigao na server!");
+        String s = "Podaci o kriticnom logu:\n\n"+$l.toString();
+    	alarmService.save(new Alarm("Error log pristigao na server", new Date(), s, $l.getMonitorId(), $l.getMonitorId()));
+    	
+end
+
+
+
+rule "show user"
+    when
+        $u: User()
+    then
+        System.out.println($u.getEmail());
+end

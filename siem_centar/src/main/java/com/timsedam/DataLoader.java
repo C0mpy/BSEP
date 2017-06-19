@@ -1,17 +1,19 @@
 package com.timsedam;
 
-import com.timsedam.models.Permission;
-import com.timsedam.models.Role;
-import com.timsedam.models.User;
-import com.timsedam.repository.PermissionRepository;
-import com.timsedam.repository.RoleRepository;
-import com.timsedam.repository.UserRepository;
 import org.kie.api.runtime.KieSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
+
+import com.timsedam.models.Permission;
+import com.timsedam.models.Role;
+import com.timsedam.models.User;
+import com.timsedam.repository.AlarmRepository;
+import com.timsedam.repository.PermissionRepository;
+import com.timsedam.repository.RoleRepository;
+import com.timsedam.repository.UserRepository;
 
 @Component
 public class DataLoader implements ApplicationRunner {
@@ -20,6 +22,8 @@ public class DataLoader implements ApplicationRunner {
     private RoleRepository roleRepository;
     private PermissionRepository permissionRepository;
     private UserRepository userRepository;
+    
+    AlarmRepository alarmRepository;
 
     private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
@@ -67,10 +71,14 @@ public class DataLoader implements ApplicationRunner {
 
             userRepository.save(admin);
             userRepository.save(agent);
+            
+            
 
         }
-        // kieSession.insert(admin);
-        // kieSession.fireAllRules();
+        
+        kieSession.insert(new User("admin@admin.com", new Role("ADMINISTRATOR")));
+        kieSession.fireAllRules();
+        
 
     }
 }
