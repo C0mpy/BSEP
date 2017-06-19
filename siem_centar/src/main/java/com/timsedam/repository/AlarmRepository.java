@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.Date;
+import java.util.List;
 
 public interface AlarmRepository  extends JpaRepository<Alarm, Long>{
 
@@ -20,4 +21,6 @@ public interface AlarmRepository  extends JpaRepository<Alarm, Long>{
                      @Param("start") Date start,
                      @Param("end") Date end);
 
+    List<Alarm> findAllByAgentIdAndMonitorId(String agentId,String monitorId);
+    List<Alarm> findAllByMonitorId(String monitorId);
 }

@@ -4,6 +4,7 @@ package com.timsedam.controllers;
 import com.timsedam.dto.MetricDTO;
 import com.timsedam.dto.ResponseDTO;
 import com.timsedam.dto.UserDTO;
+import com.timsedam.models.Alarm;
 import com.timsedam.models.Log;
 import com.timsedam.models.Role;
 import com.timsedam.models.User;
@@ -149,5 +150,21 @@ public class OperatorController {
 
         return new ResponseEntity(log_num,HttpStatus.OK);
     }
+
+    @RequestMapping(
+            value="/getAlarms/{agentId}/{monitorId}",
+            method = RequestMethod.GET,
+            produces="application/json"
+    )
+    public ResponseEntity getAlarmNum(@PathVariable String agentId,@PathVariable String monitorId){
+
+       List<Alarm> alarmi;
+       if(agentId.equals("all")) {alarmi=alarmService.findAll();}
+       else if(!monitorId.equals("all")){alarmi=alarmService.findAllByMonitorId(monitorId); }
+       else{alarmi= alarmService.findAllByAgentIdAndMonitorId(agentId,monitorId);}
+
+        return new ResponseEntity(alarmi,HttpStatus.OK);
+    }
+
 
 }

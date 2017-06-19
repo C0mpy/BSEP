@@ -23,6 +23,11 @@ angular
                 controller: "metricsController",
                 controllerAs: "vm"
             })
+            .when("/alarm",{
+                templateUrl: "../alarm.html",
+                controller: "alarmController",
+                controllerAs: "vm"
+            })
             .otherwise({
                 redirectTo: "/"
             });

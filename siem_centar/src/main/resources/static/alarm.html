@@ -1,0 +1,23 @@
+<div class="container">
+	<h2>Alarms</h2>
+	<uib-tabset active="activeJustified" justified="true">
+    <uib-tab index="0" heading="View">
+        <div class="container">
+            <label for="select_agent">Select agent:</label>
+            <select class="form-control" id="select_agent" ng-model="vm.agent_id" >
+                <option selected="selected" value="all">All</option>
+                <option ng-repeat="agent in vm.agents" value="{{agent}}">{{agent}}</option>
+            </select>
+            <label for="select_monitor">Select monitor:</label>
+            <select class="form-control" id="select_monitor" ng-model="vm.monitor_id" >
+                <option selected="selected" value="all">All</option>
+                <option ng-repeat="monitor in vm.monitors[vm.agent_id]" value="{{monitor}}">{{monitor}}</option>
+            </select>
+            <button ng-click="vm.get_alarms()">Get Alarms</button>
+        </div>
+    </uib-tab>
+    <uib-tab index="1" heading="Create alarm rules">
+    </uib-tab>
+    
+  </uib-tabset>
+</div>
