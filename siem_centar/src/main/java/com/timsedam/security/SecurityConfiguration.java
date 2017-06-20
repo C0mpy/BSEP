@@ -56,11 +56,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .csrf()
-                .ignoringAntMatchers("/api/operator/login", "/api/admin/login", "/api/agent/login",
-                        "api/operator/getLogsByMonitor", "/api/agent/savelog","/api/operator/getLogNumber",
-                        "/api/operator/getAlarmNumber","/api/operator/getAlarm")
-                .and()
-
+                .disable()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
@@ -85,6 +81,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
                 .antMatchers("/api/operator/getMonitors/*")
                 .hasAuthority("GET_MONITORS")
+                .and()
+                .authorizeRequests()
+                
+                .antMatchers("/api/admin/addAlarm")
+                .hasAuthority("ADD_ALARM")
                 .and()
                 .authorizeRequests();
 

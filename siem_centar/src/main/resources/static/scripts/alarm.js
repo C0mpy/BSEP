@@ -6,6 +6,7 @@
         var vm = this;
 
        vm.get_alarms=get_alarms;
+       vm.addAlarm=addAlarm;
 
         $http.get('api/operator/getAllAgents/').then(function(response){
                     vm.agents = response.data;
@@ -33,6 +34,13 @@
             }else{
                 con("parameters not selected");
             }
+        }
+        
+        function addAlarm(){
+        
+        	$http.post("/api/admin/addAlarm", {"response": "\n\n"+vm.rule}).then(function(response) {
+               
+            });
         }
 
 

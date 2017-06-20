@@ -1,10 +1,9 @@
 package com.timsedam.controllers;
 
-import com.timsedam.dto.ResponseDTO;
-import com.timsedam.dto.UserDTO;
-import com.timsedam.security.TokenUtils;
-import com.timsedam.services.UserDetailsServiceImpl;
-import com.timsedam.services.UserService;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +16,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.timsedam.dto.ResponseDTO;
+import com.timsedam.dto.UserDTO;
+import com.timsedam.security.TokenUtils;
+import com.timsedam.services.UserDetailsServiceImpl;
+import com.timsedam.services.UserService;
 
 @RestController
 @RequestMapping(value = "/api/admin")
@@ -47,6 +52,20 @@ public class AdminController {
             return resp;
         } catch (Exception ex) {
             return new ResponseEntity<ResponseDTO>(new ResponseDTO("login failed"), HttpStatus.UNAUTHORIZED);
+        }
+
+    }
+    
+    @RequestMapping(value = "/addAlarm", method = RequestMethod.POST, consumes = " application/json", produces = "application/json")
+    public ResponseEntity addAlarm(@RequestBody ResponseDTO ruleDTO) {
+        
+    	
+    	try {
+    		Files.write(Paths.get("src\\main\\resources\\drools.spring.rules\\rules.drl"), ruleDTO.getResponse().getBytes(), StandardOpenOption.APPEND);
+            return new ResponseEntity<ResponseDTO>(new ResponseDTO("Alarm is succesfully added"), HttpStatus.OK);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        	return new ResponseEntity<ResponseDTO>(new ResponseDTO("Alarm isn't succesfully added"), HttpStatus.UNAUTHORIZED);
         }
 
     }

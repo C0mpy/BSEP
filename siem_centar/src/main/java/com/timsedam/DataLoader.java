@@ -50,6 +50,7 @@ public class DataLoader implements ApplicationRunner {
             Permission sendLogPermission = new Permission("SEND_LOG");
             Permission getAgentsPermission = new Permission("GET_AGENTS");
             Permission getMonitorsPermission = new Permission ("GET_MONITORS");
+            Permission addAlarmPermission = new Permission("ADD_ALARM");
 
             Role operatorRole = new Role("OPERATOR");
             Role adminRole = new Role("ADMINISTRATOR");
@@ -59,6 +60,7 @@ public class DataLoader implements ApplicationRunner {
             operatorRole.getPermissions().add(getMonitorsPermission);
             agentRole.getPermissions().add(sendLogPermission);
             adminRole.getPermissions().add(getMonitorsPermission);
+            adminRole.getPermissions().add(addAlarmPermission);
 
             User admin = new User("admin@admin.com", adminRole);
             User agent = new User("agent", agentRole);
@@ -69,7 +71,8 @@ public class DataLoader implements ApplicationRunner {
             permissionRepository.save(sendLogPermission);
             permissionRepository.save(getAgentsPermission);
             permissionRepository.save(getMonitorsPermission);
-
+            permissionRepository.save(addAlarmPermission);
+            
             roleRepository.save(operatorRole);
             roleRepository.save(adminRole);
             roleRepository.save(agentRole);
