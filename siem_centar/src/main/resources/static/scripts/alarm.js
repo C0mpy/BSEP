@@ -39,6 +39,9 @@
         function addAlarm(){
         
         	$http.post("/api/admin/addAlarm", {"response": "\n\n"+vm.rule}).then(function(response) {
+        		
+        		vm.rule = "";
+        		alert("New Alarm Rule added!");
                
             });
         }

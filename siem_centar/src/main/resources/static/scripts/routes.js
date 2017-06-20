@@ -32,6 +32,9 @@ angular
                 redirectTo: "/"
             });
     }])
+    .config(['$httpProvider', function($httpProvider) {
+    	$httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
+    }])
     .run(['Restangular', '$log', function(Restangular, $log) {
         Restangular.setErrorInterceptor(function (response) {
             if (response.status === 500) {

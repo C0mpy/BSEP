@@ -1,5 +1,6 @@
 package com.timsedam.controllers;
 
+import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -61,7 +62,9 @@ public class AdminController {
         
     	
     	try {
-    		Files.write(Paths.get("src\\main\\resources\\drools.spring.rules\\rules.drl"), ruleDTO.getResponse().getBytes(), StandardOpenOption.APPEND);
+    		String separator = File.separator;
+    		Files.write(Paths.get("src" + separator + "main" + separator + "resources" 
+    				+ separator + "drools.spring.rules" + separator + "rules.drl"), ruleDTO.getResponse().getBytes(), StandardOpenOption.APPEND);
             return new ResponseEntity<ResponseDTO>(new ResponseDTO("Alarm is succesfully added"), HttpStatus.OK);
         } catch (Exception ex) {
             ex.printStackTrace();

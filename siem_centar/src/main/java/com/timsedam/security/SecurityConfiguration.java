@@ -1,6 +1,5 @@
 package com.timsedam.security;
 
-import com.timsedam.services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +12,12 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.csrf.CsrfFilter;
+import org.springframework.security.web.csrf.CsrfTokenRepository;
+import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
+import org.springframework.security.web.session.SessionManagementFilter;
+
+import com.timsedam.services.UserDetailsServiceImpl;
 
 @Configuration
 @EnableWebSecurity
@@ -55,8 +60,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-                .csrf()
-                .disable()
+        		
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
@@ -87,10 +91,22 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/admin/addAlarm")
                 .hasAuthority("ADD_ALARM")
                 .and()
-                .authorizeRequests();
+                .authorizeRequests()
+                
+                .and()
+        		.csrf()
+        		.csrfTokenRepository(csrfTokenRepository())
+                .ignoringAntMatchers("/api/agent/**");
 
         // dodajemo nas authenticationTokenFilterBean da se izvrsava pre UsernamePasswordAuthenticationFilter
         httpSecurity.addFilterBefore(authenticationTokenFilterBean(),
                 UsernamePasswordAuthenticationFilter.class);
+        httpSecurity.addFilterAfter(new CsrfHeaderFilter(), SessionManagementFilter.class);
     }
+    
+	private CsrfTokenRepository csrfTokenRepository() {
+		HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
+		repository.setHeaderName("X-XSRF-TOKEN");
+		return repository;
+	}
 }
