@@ -25,13 +25,36 @@
     <uib-tab index="1" heading="Create alarm rules">
     	<div class="container">
 			<form class="form-inline" autocomplete="off">
-				<h3>Add a new Alarm Rule:</h3>
 				
-				<div class="form-group">
-				  	<textarea ng-model="vm.rule" class="form-control" rows="5"></textarea>
+				<div class="row">
+        			<div class="col-md-6">
+						<h3>Add a new Alarm Rule:</h3>
+						<textarea ng-model="vm.rule" class="form-control" rows="15" style="min-width: 100%"></textarea>
+						<hr>
+						<input type="button" class="btn btn-success" ng-click="vm.addAlarm()" value="Add Alarm">
+					</div>
+					<div class="col-md-6">
+					
+						
+						<h3>Rule example:</h3>
+						<textarea class="form-control" rows="15" style="min-width: 100%" readonly>
+rule "10 neuspesnih logovanja za jedan minut na istom sistemu (Windows)"
+    when
+        $l1: Log( data.get('eventId')=="4625")
+        Number(intValue == 9) from accumulate(
+            $l2: Log(
+                $l1.data.get('number') < $l2.data.get('number'),
+                this meets[1m] $l1
+            ),
+            count($l2)
+        )
+    then
+        alarmService.save(new Alarm("Ime Alarma", new Date(), "Poruka Alarma", $l1.getMonitorId(), $l1.getMonitorId()));
+end
+						</textarea>
+						
+					</div>
 				</div>
-				<input type="button" class="btn btn-success" ng-click="vm.addAlarm()" value="Add Alarm">
-		
 			
 			</form>
 		</div>
