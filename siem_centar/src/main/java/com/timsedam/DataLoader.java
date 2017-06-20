@@ -51,6 +51,9 @@ public class DataLoader implements ApplicationRunner {
             Permission getAgentsPermission = new Permission("GET_AGENTS");
             Permission getMonitorsPermission = new Permission ("GET_MONITORS");
             Permission addAlarmPermission = new Permission("ADD_ALARM");
+            Permission getMetricsPermission=new Permission("GET_METRICS");
+            Permission getLogPermission=new Permission("GET_LOG");
+            Permission getAlarmPermission=new Permission("GET_ALARM");
 
             Role operatorRole = new Role("OPERATOR");
             Role adminRole = new Role("ADMINISTRATOR");
@@ -58,9 +61,16 @@ public class DataLoader implements ApplicationRunner {
 
             operatorRole.getPermissions().add(getAgentsPermission);
             operatorRole.getPermissions().add(getMonitorsPermission);
+            operatorRole.getPermissions().add(getMetricsPermission);
+            operatorRole.getPermissions().add(getLogPermission);
+            operatorRole.getPermissions().add(getAlarmPermission);
+            adminRole.getPermissions().add(getAgentsPermission);
             agentRole.getPermissions().add(sendLogPermission);
             adminRole.getPermissions().add(getMonitorsPermission);
             adminRole.getPermissions().add(addAlarmPermission);
+            adminRole.getPermissions().add(getMetricsPermission);
+            adminRole.getPermissions().add(getLogPermission);
+            adminRole.getPermissions().add(getAlarmPermission);
 
             User admin = new User("admin@admin.com", adminRole);
             User agent = new User("agent", agentRole);
@@ -72,6 +82,9 @@ public class DataLoader implements ApplicationRunner {
             permissionRepository.save(getAgentsPermission);
             permissionRepository.save(getMonitorsPermission);
             permissionRepository.save(addAlarmPermission);
+            permissionRepository.save(getMetricsPermission);
+            permissionRepository.save(getLogPermission);
+            permissionRepository.save(getAlarmPermission);
             
             roleRepository.save(operatorRole);
             roleRepository.save(adminRole);

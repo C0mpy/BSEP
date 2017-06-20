@@ -38,7 +38,7 @@
                 })
 
 
-                $http.post("api/operator/getLogNumber", {"agent":vm.agent_id, "monitor":vm.monitor_id,"start":vm.date1,"end":vm.date2}).then(function(response){
+                $http.post("api/operator/getAlarmNumber", {"agent":vm.agent_id, "monitor":vm.monitor_id,"start":vm.date1,"end":vm.date2}).then(function(response){
                                     vm.alarm_num=response.data
                                 })
 

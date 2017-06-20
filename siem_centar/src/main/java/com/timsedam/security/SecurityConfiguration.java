@@ -66,15 +66,29 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
 
-                .antMatchers( "/api/operator/login", "/api/admin/login", "/api/agent/login",
-                        "api/operator/getLogsByMonitor","/api/operator/getLogNumber"
-                        ,"/api/operator/getAlarm","/api/operator/getAlarmNumber")
+                .antMatchers( "/api/operator/login", "/api/admin/login", "/api/agent/login")
                 .permitAll()
                 .and()
                 .authorizeRequests()
 
                 .antMatchers( "/api/agent/savelog")
                 .hasAuthority("SEND_LOG")
+                .and()
+                .authorizeRequests()
+
+                .antMatchers( "/api/operator/getAlarmNumber","/api/operator/getLogNumber")
+                .hasAuthority("GET_METRICS")
+                .and()
+                .authorizeRequests()
+
+                .antMatchers(
+                        "/api/operator/getLogsByMonitor/*")
+                .hasAuthority("GET_LOG")
+                .and()
+                .authorizeRequests()
+
+                .antMatchers("/api/operator/getAlarm")
+                .hasAuthority("GET_ALARM")
                 .and()
                 .authorizeRequests()
 
