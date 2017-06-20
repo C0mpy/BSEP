@@ -1,0 +1,14 @@
+rule "Pojava na Firewall-u nepozeljne adrese 5 puta u minutu"
+    when
+        $l1: Log( data.get('src-ip')=="192.168.1.2")
+        Number(intValue == 5) from accumulate(
+            $l2: Log(
+                $l1.data.get('date') < $l2.data.get('date'),
+                this meets[1m] $l1
+            ),
+            count($l2)
+        )
+    then
+        System.out.println("Pojava na firewall-u nepozeljne adrese 5 puta u minutu");
+        alarmService.save(new Alarm("Firewall alarm", new Date(), "Pojava na firewall-u nepozeljne adrese 5 puta u minutu, $l1.getMonitorId(), $l1.getMonitorId()));
+end
