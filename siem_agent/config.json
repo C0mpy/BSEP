@@ -26,6 +26,18 @@
 			"timeformat" : "MMM dd hh:mm:ss"
 		},
 		{
+			"id"	:	"4",
+			"type"	:	"filemonitor",
+			"url"	:	"/var/log/pfirewall",
+			"log_line_num"	:	1,
+			"delaytime"	:	2000,
+			"logName"	: "Firewall",
+			"system"	: "Windows",
+			"regex" :	"(.+)\\s([A-Z]+)\\s([A-Z]+)\\s([a-z0-9:.]+)\\s([a-z0-9:.]+)\\s([0-9]+)\\s([0-9]+)\\s([0-9]+)\\s[0-]\\s[0-]\\s[0-]\\s[0-]\\s-\\s-\\s-\\s([A-Z]+)",
+			"structure":"date action protocol src-ip dst-ip src-port dst-port size path",
+			"timeformat" : "yyyy-MM-dd hh:mm:ss"
+		},
+		{
 			"id"	:	"3",
 			"type"	:	"windowsmonitor",
 			"delaytime"	:	2000,

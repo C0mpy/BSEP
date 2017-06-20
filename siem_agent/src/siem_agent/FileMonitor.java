@@ -82,7 +82,7 @@ public class FileMonitor extends Monitor {
 						}
 						d.setYear(new Date().getYear());
 						this.time=sdf.format(d);
-						type="Info";
+						type="Informational";
 						if(line.toUpperCase().contains("WARNING")||line.toUpperCase().contains("WARN")) type="Warning";
 						if(line.toUpperCase().contains("ERROR") ) type="Error";
 

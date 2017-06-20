@@ -15,8 +15,8 @@
             </select>
             <button ng-click="vm.get_alarms()">Get Alarms</button>
             <hr>
-            <table class="table table-sm">
-                <tr ng-repeat="alarm in vm.alarms">
+            <table class="table table-sm" >
+                <tr class="text-warning" ng-repeat="alarm in vm.alarms">
                     <td>{{alarm.name}}</td><td>{{alarm.date | date: 'medium'}}</td><td>{{alarm.message}}</td>
                 </tr>
             </table>
