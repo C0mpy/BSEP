@@ -53,6 +53,46 @@ rule "10 neuspesnih logovanja za jedan minut na istom sistemu (Windows)"
 end
 						</textarea>
 						
+						<h3>Fields wich can be used</h3>
+						<textarea class="form-control" rows="15" style="min-width: 100%" readonly>
+Common fields for all Alarms:
+	agentId
+	monitorId
+	system
+	logName
+	type
+	date
+	
+Additional fields for Windows(system log):
+	data.get('eventId')
+	data.get('number')
+	data.get('computer')
+	data.get('source')
+	data.get('message')
+	
+Additional fields for Linux(system log):
+	data.get('computer')
+	data.get('source')
+	data.get('message')
+	
+Additional fields for Server log:
+	data.get('ip')
+	data.get('method')
+	data.get('url')
+	data.get('protocol')
+	data.get('status')
+	data.get('size')
+	
+Additional fields for Firewall log:
+	data.get('action')
+	data.get('protocol')
+	data.get('src-ip')
+	data.get('dst-ip')
+	data.get('src-port')
+	data.get('dst-port')
+	data.get('path')
+						</textarea>
+						
 					</div>
 				</div>
 			
