@@ -19,7 +19,6 @@
                         $http.get('api/operator/getMonitors/' + item).then(function(response) {
                             vm.monitors[item] = response.data;
 
-                            console.log(vm.monitors)
                         });
                     })
 
@@ -29,7 +28,6 @@
             if(vm.agent_id && vm.monitor_id){
                 $http.get('api/operator/getAlarms/'+vm.agent_id+"/"+vm.monitor_id).then(function(response){
 
-                    console.log(response.data)
                     vm.alarms=response.data;
                 })
             }else{

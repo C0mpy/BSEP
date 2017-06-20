@@ -58,6 +58,7 @@ public class DataLoader implements ApplicationRunner {
             operatorRole.getPermissions().add(getAgentsPermission);
             operatorRole.getPermissions().add(getMonitorsPermission);
             agentRole.getPermissions().add(sendLogPermission);
+            adminRole.getPermissions().add(getMonitorsPermission);
 
             User admin = new User("admin@admin.com", adminRole);
             User agent = new User("agent", agentRole);

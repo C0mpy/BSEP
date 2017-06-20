@@ -12,9 +12,8 @@
             $http.post("/api/admin/login", {"email": vm.email, "password": vm.pass}).then(function(response) {
                 $cookies.put("token", response.data.response);
                 // postavlja se token u svaki zahtev
-                angular.module("myApp").config(['$httpProvider', function ($httpProvider) {
-                    $httpProvider.defaults.headers.post['X-Auth-Token'] = response.data;
-                }]);
+                $http.defaults.headers.common['X-Auth-Token'] = response.data.response;
+                $location.path("/alarm");
             });
         };
 

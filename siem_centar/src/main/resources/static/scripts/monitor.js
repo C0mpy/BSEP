@@ -3,6 +3,7 @@
     angular.module("myApp").filter("log", function() {
         return function(input, scope) {
             result = [];
+            
             angular.forEach(input, function(l){
                 var flag = true;
                 angular.forEach(scope.log_structure, function(a) {
@@ -14,7 +15,7 @@
                 if(scope["type"] !== undefined &&
                     (l["type"].toLowerCase()).indexOf(scope["type"].toLowerCase()) === -1)
                     flag = false;
-                if(scope["type"] !== undefined &&
+                if(scope["logName"] !== undefined &&
                     (l["logName"].toLowerCase()).indexOf(scope["logName"].toLowerCase()) === -1)
                     flag = false;
                 if(flag)

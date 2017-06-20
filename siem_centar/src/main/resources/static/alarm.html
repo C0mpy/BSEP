@@ -23,6 +23,95 @@
         </div>
     </uib-tab>
     <uib-tab index="1" heading="Create alarm rules">
+    	<div class="container">
+			<form class="form-inline" autocomplete="off">
+				<h3>Add a new Alarm Rule:</h3>
+				
+				<div class="form-group">
+				  	<select ng-model="vm.system" class="form-control">
+				  		<option value="" selected disabled>System</option>
+				    	<option value="Windows">Windows</option>
+				    	<option value="Linux">Linux</option>
+				    	<option value="Firewall">Firewall</option>
+				    	<option value="Apache Server">Apache Server</option>
+					</select>
+				</div>
+				<div class="form-group" ng-if="vm.system==='Windows'">
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="Log Type"
+							ng-model="vm.type" uib-typeahead="data for data in ['Info', 'Error', 'Warning']"
+							typeahead-show-hint="true" typeahead-wait-ms="220">
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="Log Source"
+							ng-model="vm.source">
+					</div>
+					<div class="form-group">
+						<input type="number" min="1" class="form-control" placeholder="Time Interval(min)"
+							ng-model="vm.time">
+					</div>
+					<div class="form-group">
+						<input type="number" min="1" class="form-control" placeholder="Occurances"
+							ng-model="vm.occurances">
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="Alarm Message"
+							ng-model="vm.alarmMessage">
+					</div>
+				</div>
+				<div class="form-group" ng-if="vm.system==='Firewall'">
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="Log Type"
+							ng-model="vm.type" uib-typeahead="data for data in ['Info', 'Error', 'Warning']"
+							typeahead-show-hint="true" typeahead-wait-ms="220">
+					</div>
+					<div class="form-group">
+						<select ng-model="vm.firewAction" class="form-control">
+					  		<option value="" selected disabled>Action</option>
+					    	<option value="ALLOW">ALLOW</option>
+					    	<option value="DROP">DROP</option>
+					    </select>
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="Protocol"
+							uib-typeahead="data for data in ['TCP', 'UTP']"
+							typeahead-show-hint="true" typeahead-wait-ms="220"
+							ng-model="vm.firewProtocol">
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="Source IP"
+							ng-model="vm.firewSourceIp">
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="Source Port"
+							ng-model="vm.firewSourcePort">
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="Destination IP"
+							ng-model="vm.firewDestinationIp">
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="Destination Port"
+							ng-model="vm.firewDestinationPort">
+					</div>
+					<div class="form-group">
+						<input type="number" min="1" class="form-control" placeholder="Time Interval(min)"
+							ng-model="vm.time">
+					</div>
+					<div class="form-group">
+						<input type="number" min="1" class="form-control" placeholder="Occurances"
+							ng-model="vm.occurances">
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="Alarm Message"
+							ng-model="vm.alarmMessage">
+					</div>
+				</div>
+				<input type="button" class="btn btn-success" value="Add Alarm">
+		
+			
+			</form>
+		</div>
     </uib-tab>
     
   </uib-tabset>
